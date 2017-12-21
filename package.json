@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/pinussilvestrus/fpv-logfile-analyzer#readme",
   "dependencies": {
+    "node-chartist": "^1.0.5",
     "split": "^1.0.1",
     "underscore": "^1.8.3"
   }
