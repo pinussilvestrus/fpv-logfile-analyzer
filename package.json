@@ -1,0 +1,23 @@
+{
+  "name": "fpv-logfile-analyzer",
+  "version": "1.0.0",
+  "description": "Script for automatically analyzing the smart-meter logfiles (Forschungsprojekt Virtualisierung HS-Harz)",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pinussilvestrus/fpv-logfile-analyzer.git"
+  },
+  "author": "",
+  "license": "GPL-3.0",
+  "bugs": {
+    "url": "https://github.com/pinussilvestrus/fpv-logfile-analyzer/issues"
+  },
+  "homepage": "https://github.com/pinussilvestrus/fpv-logfile-analyzer#readme",
+  "dependencies": {
+    "split": "^1.0.1",
+    "underscore": "^1.8.3"
+  }
+}
