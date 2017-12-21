@@ -3,9 +3,13 @@ const _ = require('underscore');
 const split = require('split');
 const generate = require('node-chartist');
 
-const regex = new RegExp("[^\\n\\r\\t ]+",'g')
-const test_file = 'logs/Stck1-21122017-1415Uhr.txt'; // todo: command line
+const regex = new RegExp("[^\\n\\r\\t ]+",'g');
+
+// options todo: command line
+const test_file = 'logs/Stck1-21122017-1415Uhr.txt'; 
 const test_output_file = 'test.html';
+const data_factor = 100; // indicates, how much data is retrieved from files, value = 2 => every 2nd..
+const fetchEnergy = false;
 
 const timestamp_index = 0;
 const socket_index = 1;
@@ -50,10 +54,14 @@ const convertStreamToJSON = (outData) => {
     labels: [],
     series: [[]]
   };
-  _.each(outData, od => {
-    result.labels.push(od[timestamp_index]);
-    result.series[0].push(od[energy_index]);
+  _.each(outData, (od, index) => {
+    if (index % data_factor == 0) {
+      result.labels.push(od[timestamp_index]);
+      result.series[0].push(od[fetchEnergy ? energy_index: power_index]);
+    }
   });
+
+  console.log(`${result.labels.length} from overall ${outData.length} data points were retrieved for chart (factor ${data_factor})`);
 
   return result;
 }
@@ -98,7 +106,7 @@ const writeDiagram = (dataObject) => {
       if(err) {
           return console.log(err);
       }
-      console.log("The file was saved!");
+      console.log(`The chart was rendered in ${test_output_file}!`);
     }); 
   }) 
 }
