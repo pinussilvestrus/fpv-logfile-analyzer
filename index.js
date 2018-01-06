@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 const fs = require('fs');
 const _ = require('underscore');
 const split = require('split');
@@ -5,22 +7,30 @@ const renderChart = require('node-chartist');
 const handlebars = require('handlebars');
 const promisify = require('es6-promisify');
 const path = require('path');
+const commander = require('commander');
 
 const regex = new RegExp("[^\\n\\r\\t ]+",'g');
 const templateFile = './template.hbs';
-// options defaults todo: command line
-const inputFile = 'logs/Stck2-21122017-1415Uhr.txt'; 
-const outputFile = 'index.html';
-const dataFactor = 100; // indicates, how much data is retrieved from files, value = 2 => every 2nd..
-const fetchEnergy = false;
-
 const timestampIndex = 0;
 const socketIndex = 1;
 const energyIndex = 4;
 const powerIndex = 6;
 
+// options defaults
+let inputFile = 'logs/Stck2-21122017-1415Uhr.txt'; 
+let outputFile = 'index.html';
+let dataFactor = 100; // indicates, how much data is retrieved from files, value = 2 => every 2nd..
+let fetchEnergy = false;
+
+/*
+#######################
+#######################
+######## L I B ########
+#######################
+#######################
+*/
+
 /**
- * 
  * @param [Array of Arrays] outData
  * converts e.g.
  * [['2018-05-02_00:24:42',
@@ -125,5 +135,28 @@ const writeDiagram = (dataObject) => {
       });
     });
 }
+
+/*
+#######################
+#######################
+####### M A I N #######
+#######################
+#######################
+*/
+
+// input cli arguments
+
+commander
+  .version('0.1.0')
+  .option('-i, --input-file <path>', "Add an input file, e.g. 'logs/Stck2-21122017-1415Uhr.txt'")
+  .option('-o, --output-file <path>', "Add an output file, e.g. 'index.html'")
+  .option('-d, --data-factor <number>', 'Add an data-factor, e.g. 100')
+  .option('-f, --fetchEnergy <boolean>', 'Whether to fetch energy or power data')
+  .parse(process.argv);
+
+inputFile = commander.inputFile || inputFile;
+outputFile = commander.outputFile || outputFile;
+dataFactor = commander.dataFactor || dataFactor;
+fetchEnergy = commander.fetchEnergy || fetchEnergy;
 
 readFile(inputFile);
