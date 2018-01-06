@@ -4,7 +4,8 @@
   "description": "Script for automatically analyzing the smart-meter logfiles (Forschungsprojekt Virtualisierung HS-Harz)",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "python -m SimpleHTTPServer 8000"
   },
   "repository": {
     "type": "git",
@@ -17,6 +18,8 @@
   },
   "homepage": "https://github.com/pinussilvestrus/fpv-logfile-analyzer#readme",
   "dependencies": {
+    "es6-promisify": "^5.0.0",
+    "handlebars": "^4.0.11",
     "node-chartist": "^1.0.5",
     "split": "^1.0.1",
     "underscore": "^1.8.3"
