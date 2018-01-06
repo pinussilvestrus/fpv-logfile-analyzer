@@ -9,7 +9,7 @@ const path = require('path');
 const regex = new RegExp("[^\\n\\r\\t ]+",'g');
 const templateFile = './template.hbs';
 // options defaults todo: command line
-const inputFile = 'logs/Stck1-21122017-1415Uhr.txt'; 
+const inputFile = 'logs/Stck2-21122017-1415Uhr.txt'; 
 const outputFile = 'index.html';
 const dataFactor = 100; // indicates, how much data is retrieved from files, value = 2 => every 2nd..
 const fetchEnergy = false;
@@ -42,29 +42,28 @@ const powerIndex = 6;
 
     {
       label: Steckdose1_Pwr,
-      data: [
-        {
-          timestamp: 2018-05-02_00:24:42,
-          energy: 469.1,
-          power: 193.41
-        }
-      ],
-      ...
+      chartData: { 
+        labels: [ '2018-05-02_00:24:42',  ... ],
+        series: [ [ '193.41', .. ] ]
+      }
     }
  */
 const convertStreamToJSON = (outData) => {
   let result = {
-    labels: [],
-    series: [[]]
+    label: outData[0][socketIndex],
+    chartData: {
+      labels: [],
+      series: [[]]
+    }
   };
   _.each(outData, (od, index) => {
     if (index % dataFactor == 0) {
-      result.labels.push(od[timestampIndex]);
-      result.series[0].push(od[fetchEnergy ? energyIndex: powerIndex]);
+      result.chartData.labels.push(od[timestampIndex]);
+      result.chartData.series[0].push(od[fetchEnergy ? energyIndex: powerIndex]);
     }
   });
 
-  console.log(`${result.labels.length} from overall ${outData.length} data points were retrieved for chart (factor ${dataFactor})`);
+  console.log(`Socket ${result.label}: ${result.chartData.labels.length} from overall ${outData.length} data points were retrieved for chart (factor ${dataFactor})`);
 
   return result;
 }
@@ -93,7 +92,12 @@ const readFile = (inPath) => {
 }
 
 const writeDiagram = (dataObject) => {
-  const options = {width: 4000, height: 2000};
+  const options = {
+    width: 2000, 
+    height: 1000,
+    axisY: { title: fetchEnergy ? 'Energie E in WS' : 'Leistung P in W'},
+    axisX: { title: 'Datum' }
+  };
 
   /**const exampleData = {
     labels: ['a','b','c','d','e'],
@@ -103,13 +107,14 @@ const writeDiagram = (dataObject) => {
     ]
   };**/
 
-  renderChart('line', options, dataObject).then(chartDiv => {
+  renderChart('line', options, dataObject.chartData).then(chartDiv => {
     // render to output-file with handlebars
     return promisify(fs.readFile)(path.join(__dirname, templateFile)).then(res => {
       let source = res.toString();
         let template = handlebars.compile(source);
         let html = template({
-          chartDiv: chartDiv
+          chartDiv: chartDiv,
+          chartTitle: dataObject.label
         });
 
         return promisify(fs.writeFile)(outputFile, html).then(res => {

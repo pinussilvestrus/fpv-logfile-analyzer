@@ -2,6 +2,9 @@
   <head>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.bundle.js"></script>
     <style type="text/css">
+      .chart-title {
+        margin-button: .4rem;
+      }
       .ct-double-octave:after,
       .ct-major-eleventh:after,
       .ct-major-second:after,
@@ -24,8 +27,11 @@
       .ct-label {
       fill: rgba(0, 0, 0, 0.4);
       color: rgba(0, 0, 0, 0.4);
-      font-size: .75rem;
+      font-size: .50rem;
       line-height: 1;
+      }
+      .ct-axis-title {
+        font-size: .80rem;
       }
       .ct-grid-background,
       .ct-line {
@@ -928,6 +934,9 @@
     </style>
   </head>
   <body>
+    <div class="chart-title">
+      <h3>{{chartTitle}}</h3>
+    </div>
     {{{chartDiv}}}
     <div class="ct-legend">  
     </div>
