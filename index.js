@@ -12,13 +12,14 @@ const moment = require('moment');
 
 const regex = new RegExp("[^\\n\\r\\t ]+",'g');
 const templateFile = './template.hbs';
+const timestampFormat = 'YYYY-MM-DD_hh:mm:ss';
 const timestampIndex = 0;
 const socketIndex = 1;
 const energyIndex = 4;
 const powerIndex = 6;
 
 // options defaults
-let inputFile = 'logs/Stck2-21122017-1415Uhr.txt'; 
+let inputFile = 'logs/Stck1-21122017-1415Uhr.txt'; 
 let outputFile = 'index.html';
 let dataFactor = 100; // indicates, how much data is retrieved from files, value = 2 => every 2nd..
 let fetchEnergy = false;
@@ -30,6 +31,18 @@ let fetchEnergy = false;
 #######################
 #######################
 */
+
+/**
+ * the timestamps written in the logfiles are false, e.g. the measurements starts at
+ * 2018-05-01_22:00:42 in the log, but 2017-12-18_11:00:00 in real time
+ * this function converts a given timestamp to the correct one
+ * @param {String} timestamp, e.g. 2018-05-01_22:00:42
+ */
+const convertTimeStamp = (timestamp) => {
+  // calculated by: 2018-05-01_22:00:24 - 2017-12-18_11:00:42
+  const differenceInMillis = 11613582000;
+  return moment(timestamp, timestampFormat).subtract(differenceInMillis, 'milliseconds').format(timestampFormat);
+}
 
 /**
  * 
@@ -63,7 +76,6 @@ const calculateStatistics = (dataObject) => {
     averagedPower: 0
   };
 
-  const timestampFormat = 'YYYY-MM-DD_hh:mm:ss';
   const outTimeFormat = 'DD.MM.YYYY hh:mm:ss';
 
   // fromTo
@@ -117,6 +129,11 @@ const calculateStatistics = (dataObject) => {
  */
 const convertStreamToJSON = (outData) => {
 
+  // convert timestamps
+  _.each(outData, o => {
+    o[timestampIndex] = convertTimeStamp(o[timestampIndex]);
+  });
+
   // predefine result-structure
   let result = {
     label: outData[0][socketIndex],
@@ -126,8 +143,6 @@ const convertStreamToJSON = (outData) => {
     },
     statistics: calculateStatistics(outData)
   };
-
-  // TODO: issue #6 convert timestamps
 
   // calculate chartData
   _.each(outData, (od, index) => {
@@ -185,7 +200,7 @@ const writeDiagram = (dataObject) => {
   const options = {
     width: 2000, 
     height: 1000,
-    axisY: { title: fetchEnergy ? 'Energie E in WS' : 'Leistung P in W'},
+    axisY: { title: fetchEnergy ? 'Energie E in Ws' : 'Leistung P in W'},
     axisX: { title: 'Datum' }
   };
 
