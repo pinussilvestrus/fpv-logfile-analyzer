@@ -10,11 +10,11 @@ Script for automatically analyzing the smart-meter logfiles (Forschungsprojekt V
 1. Clone directory into local folder
 2. Go into the cloned folder and enter `npm install`
 
-## Run
+## Run CLI
 
 1. Go into project folder
-2. run `node index.js` for generating the chart
-3. run `npm start` for serving the generated chart on http://localhost:8000/
+2. run `node lib/index.js` for generating the chart
+3. run `npm run serve-chart` for serving the generated chart on http://localhost:8000/
 
 ## Cli Usage
 
@@ -29,3 +29,7 @@ Usage: node index.js [options]
     -f, --fetchEnergy <boolean>  Whether to fetch energy or power data
     -h, --help                   output usage information
 
+## Run Web-App
+
+1. Go into project folder
+2. run `npm start` for serving the app on http://localhost:3100/

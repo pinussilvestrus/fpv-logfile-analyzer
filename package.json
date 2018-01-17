@@ -1,29 +1,37 @@
 {
-  "name": "fpv-logfile-analyzer",
-  "version": "1.0.0",
-  "description": "Script for automatically analyzing the smart-meter logfiles (Forschungsprojekt Virtualisierung HS-Harz)",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "python -m SimpleHTTPServer 8000"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/pinussilvestrus/fpv-logfile-analyzer.git"
-  },
-  "author": "",
-  "license": "GPL-3.0",
-  "bugs": {
-    "url": "https://github.com/pinussilvestrus/fpv-logfile-analyzer/issues"
-  },
-  "homepage": "https://github.com/pinussilvestrus/fpv-logfile-analyzer#readme",
-  "dependencies": {
-    "commander": "^2.12.2",
-    "es6-promisify": "^5.0.0",
-    "handlebars": "^4.0.11",
-    "moment": "^2.20.1",
-    "node-chartist": "^1.0.5",
-    "split": "^1.0.1",
-    "underscore": "^1.8.3"
-  }
+    "name": "fpv-logfile-analyzer",
+    "version": "1.0.0",
+    "description": "Script for automatically analyzing the smart-meter logfiles (Forschungsprojekt Virtualisierung HS-Harz)",
+    "main": "index.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "serve-chart": "python -m SimpleHTTPServer 8000",
+        "start": "node bin/www",
+        "watch": "nodemon --watch ./ --watch views/ --watch controllers/ --watch public/ --ext js,css ./bin/www"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/pinussilvestrus/fpv-logfile-analyzer.git"
+    },
+    "author": "",
+    "license": "GPL-3.0",
+    "bugs": {
+        "url": "https://github.com/pinussilvestrus/fpv-logfile-analyzer/issues"
+    },
+    "homepage": "https://github.com/pinussilvestrus/fpv-logfile-analyzer#readme",
+    "dependencies": {
+        "body-parser": "^1.18.2",
+        "commander": "^2.12.2",
+        "es6-promisify": "^5.0.0",
+        "express": "^4.16.2",
+        "handlebars": "^4.0.11",
+        "handlebars-layouts": "^3.1.4",
+        "handlebars-wax": "^6.1.0",
+        "method-override": "^2.3.10",
+        "moment": "^2.20.1",
+        "node-chartist": "^1.0.5",
+        "serve-favicon": "^2.4.5",
+        "split": "^1.0.1",
+        "underscore": "^1.8.3"
+    }
 }
