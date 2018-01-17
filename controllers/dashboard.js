@@ -13,7 +13,7 @@ router.get('/dashboard/', function(req, res, next) {
 
     // todo: show something dashboard like stuff
     analyzer.build({
-        inputFile: 'logs/Stck1-21122017-1415Uhr.txt',
+        inputFile: 'logs/Stck2-21122017-1415Uhr.txt',
         outputFile: 'index.html',
         dataFactor: 100,
         fetchEnergy: false
