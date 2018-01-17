@@ -13,12 +13,12 @@ Script for automatically analyzing the smart-meter logfiles (Forschungsprojekt V
 ## Run CLI
 
 1. Go into project folder
-2. run `node lib/index.js` for generating the chart
+2. run `node lib/cli.js` for generating the chart
 3. run `npm run serve-chart` for serving the generated chart on http://localhost:8000/
 
 ## Cli Usage
 
-Usage: node index.js [options]
+Usage: node cli.js [options]
 
   Options:
 
