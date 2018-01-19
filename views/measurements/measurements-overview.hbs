@@ -1,0 +1,30 @@
+{{#extend "lib/default"}}
+    {{#content "content"}}
+        <div class="content">
+            <div class="container-fluid">
+                <div class="row">
+                   {{#each measurements}}
+                      <div class="col-md-12">
+                            <div class="card" onclick="location.href = '/measurements/{{this._id}}'">
+                                <div class="card-header">
+                                    <h4 class="card-title"><i class="fa fa-flask" aria-hidden="true"></i> {{this.label}}</h4>
+                                    <p class="card-category">Messgerät: {{this.socket}}</p>
+                                </div>
+                                <div class="card-body">
+                                    <p class="card-category">Logdatei: {{this.logFile}}</p>
+                                    <p class="card-category">Gemessener Zeitraum: {{this.statistics.fromTo}} ({{this.statistics.calculatedHours}} Stunden)
+                                    <p class="card-category">Verbrauchte Energie: {{this.statistics.usedEnergy}} Ws
+                                   <p class="card-category">durchschnittliche Leisung: {{this.statistics.averagedPower}} W
+                                </div>
+                            </div>
+                        </div>
+                    {{else}}
+                      <p class="text-muted list-group-item list-group-item-action align-items-start">
+                        <span>Keine Messungen.</span>
+                      </p>
+                    {{/each}}
+                </div>
+            </div>
+        </div>
+    {{/content}}
+{{/extend}}

@@ -1080,3 +1080,16 @@
 .ct-series-o .ct-slice-pie {
     fill: indianred;
 }
+
+.card {
+    padding: 10px;
+    padding-left: 3rem;
+}
+
+.card:hover {
+    cursor: pointer;
+}
+
+.row {
+    padding-left: 2rem;
+}

@@ -9,21 +9,10 @@ const analyzer = require('../lib/index');
 
 // Dashboard
 
-router.get('/dashboard/', function(req, res, next) {
-
-    // todo: show something dashboard like stuff
-    analyzer.build({
-        inputFile: 'logs/Stck2-21122017-1415Uhr.txt',
-        outputFile: 'index.html',
-        dataFactor: 100,
-        fetchEnergy: false
+router.get('/', function(req, res, next) {
+    return res.render('dashboard/dashboard', {
+        title: 'Dashboard'
     });
-    analyzer.readFile(true).then(result => {
-        return res.render('dashboard/dashboard', {
-            title: 'Dashboard',
-            demo: result
-        });
-    })
 });
 
 module.exports = router;

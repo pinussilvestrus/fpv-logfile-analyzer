@@ -1,0 +1,20 @@
+
+{{#extend "lib/default"}}
+    {{#content "content"}}
+        <div class="content">
+            <div class="container-fluid">
+                <div class="row">
+                    <h3>Messgerät: {{measurement.socket}}</h3>
+                    {{{chartDiv}}}
+                    <div class="ct-legend">  
+                    </div>
+                    <div class="statistics">
+                      <b>Gemessener Zeitraum: </b><span>{{measurement.statistics.fromTo}} ({{measurement.statistics.calculatedHours}} Stunden)</span><br>
+                      <b>Verbrauchte Energie: </b><span>{{measurement.statistics.usedEnergy}} Ws</span><br>
+                      <b>durchschnittliche Leisung: </b><span>{{measurement.statistics.averagedPower}} W</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {{/content}}
+{{/extend}}

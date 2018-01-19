@@ -1,9 +1,9 @@
 const express = require('express');
 const router = express.Router();
 
-router.use(require('./dashboard'));
+router.use('/dashboard', require('./dashboard'));
 
-/**router.use('/account/', require('./account'));**/
+router.use('/measurements/', require('./measurements'));
 
 
 module.exports = router;

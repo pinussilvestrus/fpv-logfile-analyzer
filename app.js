@@ -6,6 +6,7 @@ const handlebars = require("handlebars");
 const layouts = require("handlebars-layouts");
 const handlebarsWax = require('handlebars-wax');
 const methodOverride = require('method-override');
+const mongoose = require('mongoose');
 
 const app = express();
 
@@ -35,6 +36,10 @@ app.use(methodOverride((req, res, next) => { // for POST requests
     }
 }));
 
+// Initialize models
+const mongoUrl = process.env.DB_URL || 'mongodb://localhost:27017/fpv';
+mongoose.connect(mongoUrl, { user: process.env.DB_USERNAME, pass: process.env.DB_PASSWORD });
+mongoose.Promise = global.Promise;
 
 // Initialize the modules and their routes
 app.use(require('./controllers/'));

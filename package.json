@@ -29,6 +29,7 @@
         "handlebars-wax": "^6.1.0",
         "method-override": "^2.3.10",
         "moment": "^2.20.1",
+        "mongoose": "^5.0.0",
         "node-chartist": "^1.0.5",
         "serve-favicon": "^2.4.5",
         "split": "^1.0.1",
