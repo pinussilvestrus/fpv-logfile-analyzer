@@ -6,7 +6,7 @@ const express = require('express');
 const router = express.Router();
 const formidable = require('formidable');
 const path = require('path');
-const fs = require('fs');
+const fs = require('promisify-fs');
 const analyzer = require('../lib/index');
 const measurementsModel = require('../models/measurement.model');
 
@@ -18,15 +18,10 @@ const handleFileUpload = file => {
     let inputPath = path.join('logs', fileName);
     let newPath = path.join(process.env.PWD, inputPath);
 
-    return new Promise((resolve, reject) => {
-        fs.readFile(oldPath, function(err, data) {
-            if (err) reject(err);
-            fs.writeFile(newPath, data, function(err) {
-                if (err) reject(err);
-                fs.unlink(oldPath, function(err) {
-                    if (err) reject(err);
-                    return resolve(inputPath);
-                });
+    return fs.readFile(oldPath).then(data => {
+        return fs.writeFile(newPath, data).then(_ => {
+            return fs.delFile(oldPath).then(_ => {
+                return inputPath;
             });
         });
     });
@@ -88,6 +83,15 @@ router.post('/', function(req, res, next) {
                     res.redirect('/measurements/');
                 }).catch(err => res.send(err));
             });
+        });
+    });
+});
+
+router.delete('/:id/', function(req, res, next) {
+    return measurementsModel.find({ _id: req.params.id }).remove().then(result => {
+        // delete logfile
+        return fs.delFile(req.query.logFile).then(_ => {
+            res.sendStatus(200);
         });
     });
 });

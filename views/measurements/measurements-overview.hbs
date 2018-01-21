@@ -7,6 +7,16 @@
                       <div class="col-md-12">
                             <div class="card" onclick="location.href = '/measurements/{{this._id}}'">
                                 <div class="card-header">
+                                    <a
+                                        href="/measurements/{{_id}}"
+                                        class="delete-measurement"
+                                        target="_blank"
+                                        logFile="{{logFile}}"
+                                        data-method="delete-material"
+                                        data-name="{{name}}"
+                                        alt="Löschen der Messung: '{{name}}'.">
+                                        <i class="fa fa-trash-o"></i>
+                                    </a>    
                                     <h4 class="card-title"><i class="fa fa-flask" aria-hidden="true"></i> {{this.label}}</h4>
                                     <p class="card-category">Messgerät: {{this.socket}}</p>
                                 </div>

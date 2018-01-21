@@ -32,6 +32,7 @@
     "moment": "^2.20.1",
     "mongoose": "^5.0.0",
     "node-chartist": "^1.0.5",
+    "promisify-fs": "^1.0.39",
     "serve-favicon": "^2.4.5",
     "split": "^1.0.1",
     "underscore": "^1.8.3"
