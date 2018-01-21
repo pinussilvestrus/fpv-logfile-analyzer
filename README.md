@@ -27,7 +27,7 @@ Usage: node cli.js [options]
     -o, --output-file <path>           Add an output file, e.g. 'index.html'
     -d, --data-factor <number>         Add an data-factor, e.g. 100
     -f, --fetch-energy <boolean>       Whether to fetch energy or power data
-    -m, --data-points-method <number>  Which method to choose for the data points, see dataPointsHelper.js
+    -m, --data-points-method <number>  Which method to choose for the data points, see dataPointsHelper.js, default is useBlockAverage
     -h, --help                         output usage information
 ## Run Web-App
 

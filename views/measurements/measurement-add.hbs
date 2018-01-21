@@ -1,0 +1,43 @@
+
+{{#extend "lib/default"}}
+    {{#content "content"}}
+        <div class="content">
+            <div class="container-fluid">
+                <form action="/measurements/" method="post">
+
+                <div class="form-group">
+                    <label>Name der Messung</label>
+                    <input class="form-control" name="label" type="text" placeholder="Messung für Raum 9.101" required/>
+                </div>
+
+                <div class="form-group">
+                    <label>Datenfaktor (für Berechnungszusammenfassungen)</label>
+                    <input class="form-control" name="dataFactor" type="number" placeholder="100" value="100" required/>
+                </div>
+
+                <div class="form-group">
+                  <label for="dataPointsMethod">Datenauswerrtungsmethode</label>
+                  <select class="form-control" id="dataPointsMethod" name="dataPointsMethod">
+                    {{#each dataPointMethodOptions}}
+                        <option value="{{@index}}">{{this}}</option>
+                    {{/each}}
+                  </select>
+                </div>
+
+                <div class="form-group">
+                  <label for="fetchEnergy">Zu betrachtender Messwert</label>
+                  <select class="form-control" id="fetchEnergy" name="fetchEnergy">
+                      <option value="fetchPower">Leistung in W</option>
+                      <option value="fetchEnergy">Energie in Ws</option>
+                  </select>
+                </div>
+
+                <button type="submit" class="btn btn-primary btn-submit">
+                    Speichern
+                </button>
+  
+               </form>
+            </div>
+        </div>
+    {{/content}}
+{{/extend}}
