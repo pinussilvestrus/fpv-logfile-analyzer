@@ -20,15 +20,15 @@ Script for automatically analyzing the smart-meter logfiles (Forschungsprojekt V
 
 Usage: node cli.js [options]
 
-  Options:
+    Options:
 
-    -V, --version                output the version number
-    -i, --input-file <path>      Add an input file, e.g. 'logs/Stck2-21122017-1415Uhr.txt'
-    -o, --output-file <path>     Add an output file, e.g. 'index.html'
-    -d, --data-factor <number>   Add an data-factor, e.g. 100
-    -f, --fetchEnergy <boolean>  Whether to fetch energy or power data
-    -h, --help                   output usage information
-
+    -V, --version                      output the version number
+    -i, --input-file <path>            Add an input file, e.g. 'logs/Stck2-21122017-1415Uhr.txt'
+    -o, --output-file <path>           Add an output file, e.g. 'index.html'
+    -d, --data-factor <number>         Add an data-factor, e.g. 100
+    -f, --fetch-energy <boolean>       Whether to fetch energy or power data
+    -m, --data-points-method <number>  Which method to choose for the data points, see dataPointsHelper.js
+    -h, --help                         output usage information
 ## Run Web-App
 
 1. Go into project folder
