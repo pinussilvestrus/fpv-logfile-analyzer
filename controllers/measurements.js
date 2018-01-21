@@ -4,8 +4,33 @@
 
 const express = require('express');
 const router = express.Router();
+const formidable = require('formidable');
+const path = require('path');
+const fs = require('fs');
 const analyzer = require('../lib/index');
 const measurementsModel = require('../models/measurement.model');
+
+/* https://gist.github.com/paambaati/db2df71d80f20c10857d */
+const handleFileUpload = file => {
+    let oldPath = file.path;
+    let fileSize = file.size;
+    let fileName = file.name;
+    let inputPath = path.join('logs', fileName);
+    let newPath = path.join(process.env.PWD, inputPath);
+
+    return new Promise((resolve, reject) => {
+        fs.readFile(oldPath, function(err, data) {
+            if (err) reject(err);
+            fs.writeFile(newPath, data, function(err) {
+                if (err) reject(err);
+                fs.unlink(oldPath, function(err) {
+                    if (err) reject(err);
+                    return resolve(inputPath);
+                });
+            });
+        });
+    });
+};
 
 // Measurements
 router.get('/', function(req, res, next) {
@@ -38,27 +63,32 @@ router.get('/:id/', function(req, res, next) {
 
 router.post('/', function(req, res, next) {
 
-    console.log(req.body)
-        // todo: handle file upload
+    let form = new formidable.IncomingForm();
+    form.parse(req, function(err, fields, files) {
 
-    analyzer.build({ // todo: inputFile
-        dataFactor: parseInt(req.body.dataFactor),
-        fetchEnergy: req.body.fetchEnergy === 'fetchEnergy' ? true : false,
-        dataPointsMethod: parseInt(req.body.dataPointsMethod)
-    });
+        handleFileUpload(files.file).then(inputFile => {
 
-    analyzer.readFile(true).then(result => {
-        let newMeasurement = new measurementsModel({
-            label: req.body.label,
-            logFile: 'logs/Stck2-15012018-1130Uhr.txt', //todo!
-            socket: result.chartTitle,
-            chartData: result.chartData,
-            statistics: result.statistics
+            analyzer.build({
+                inputFile,
+                dataFactor: parseInt(fields.dataFactor),
+                fetchEnergy: fields.fetchEnergy === 'fetchEnergy' ? true : false,
+                dataPointsMethod: parseInt(fields.dataPointsMethod)
+            });
+
+            analyzer.readFile(true).then(result => {
+                let newMeasurement = new measurementsModel({
+                    label: fields.label,
+                    logFile: inputFile,
+                    socket: result.chartTitle,
+                    chartData: result.chartData,
+                    statistics: result.statistics
+                });
+
+                return newMeasurement.save().then(result => {
+                    res.redirect('/measurements/');
+                }).catch(err => res.send(err));
+            });
         });
-
-        return newMeasurement.save().then(result => {
-            res.redirect('/measurements/');
-        }).catch(err => res.err(err));
     });
 });
 
