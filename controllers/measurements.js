@@ -32,6 +32,16 @@ const handleFileUpload = file => {
     });
 };
 
+/* 1 Wh = 1 Ws / (60 min * 60 s) */
+const convertWsToWh = statistics => {
+    statistics.usedEnergyWh = Math.round(((statistics.usedEnergy) / (60 * 60)) * 100) / 100;
+};
+
+/* 1 kWh = 1 Wh / (1000) */
+const convertWhTokWh = statistics => {
+    statistics.usedEnergykWh = Math.round((statistics.usedEnergyWh / 1000) * 100) / 100;
+};
+
 // Measurements
 router.get('/', function(req, res, next) {
     return measurementsModel.find({}).then(result => {
@@ -53,6 +63,10 @@ router.get('/add/', function(req, res, next) {
 router.get('/:id/', function(req, res, next) {
     return measurementsModel.findOne({ _id: req.params.id }).then(result => {
         return analyzer.writeDiagram(result, true).then(diagram => {
+
+            convertWsToWh(result.statistics);
+            convertWhTokWh(result.statistics);
+
             return res.render('measurements/measurement', {
                 title: result.label,
                 measurement: result,
