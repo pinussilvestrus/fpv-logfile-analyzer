@@ -10,6 +10,11 @@ const fs = require('promisify-fs');
 const analyzer = require('../lib/index');
 const measurementsModel = require('../models/measurement.model');
 
+const timestampOffsetOptions = [
+    { label: 'kein Offset', value: 0 },
+    { label: 'Rechenzentrum - Messung (Offset von 134,417 Tagen)', value: 11613582000 },
+]
+
 /* https://gist.github.com/paambaati/db2df71d80f20c10857d */
 const handleFileUpload = file => {
     let oldPath = file.path;
@@ -41,6 +46,7 @@ router.get('/add/', function(req, res, next) {
     return res.render('measurements/measurement-add', {
         title: 'Messung hinzufügen',
         dataPointMethodOptions: analyzer.getDataPointFunctionNames,
+        timestampOffsetOptions
     });
 });
 
@@ -67,7 +73,8 @@ router.post('/', function(req, res, next) {
                 inputFile,
                 dataFactor: parseInt(fields.dataFactor),
                 fetchEnergy: fields.fetchEnergy === 'fetchEnergy' ? true : false,
-                dataPointsMethod: parseInt(fields.dataPointsMethod)
+                dataPointsMethod: parseInt(fields.dataPointsMethod),
+                dataPointTimeStampOffset: fields.dataPointTimeStampOffset
             });
 
             analyzer.readFile(true).then(result => {
