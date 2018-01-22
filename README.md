@@ -28,6 +28,7 @@ Usage: node cli.js [options]
     -d, --data-factor <number>         Add an data-factor, e.g. 100
     -f, --fetch-energy <boolean>       Whether to fetch energy or power data
     -m, --data-points-method <number>  Which method to choose for the data points, see dataPointsHelper.js, default is useBlockAverage
+    -t, --timestamp-offset <number>    Offset for converting all timestamps
     -h, --help                         output usage information
 ## Run Web-App
 
