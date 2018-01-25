@@ -61,7 +61,7 @@ const Schema = mongoose.Schema;
     },
     "statistics": {
         "fromTo": "18.12.2017 11:00:52 - 21.12.2017 02:01:54",
-        "calculatedHours": 63.02,
+        "calculatedMinutes": 63.02,
         "usedEnergy": 11672.1,
         "averagedPower": 160.28
     }
@@ -76,7 +76,7 @@ const dataSchema = new Schema({
 
 const statisticsSchema = new Schema({
     fromTo: { type: String },
-    calculatedHours: { type: Number },
+    calculatedMinutes: { type: Number },
     usedEnergy: { type: Number },
     averagedPower: { type: Number }
 });
