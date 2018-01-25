@@ -29,6 +29,7 @@ input[type="file"] {
 .delete-measurement:hover {
     color: #1D62F0;
 }
+
 .card-dashboard:hover {
     cursor: default;
 }
@@ -36,4 +37,10 @@ input[type="file"] {
 p {
     text-align: justify;
     padding-right: 1rem;
+}
+
+.logohsh {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
 }
