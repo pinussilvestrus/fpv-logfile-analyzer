@@ -1,0 +1,17 @@
+{
+  "_id" : { "$oid": "59a3e4a4a2049554a93fec93" },
+  "updatedAt" : { "$date": "2018-01-25T10:00:01.877Z" },
+  "createdAt" : { "$date": "2018-01-25T10:00:01.877Z" },
+  "eVorher": {
+    "tLabore": 121219.98,
+    "cComputerDurchschnitt": 15
+  },
+  "eNachher": {
+    "tLabore": 121219.98,
+    "cZeroClientsDurchschnitt": 15,
+    "eServerraum": {
+      "tSemester": 141120.0,
+      "cServer": 4
+    }
+  }
+}

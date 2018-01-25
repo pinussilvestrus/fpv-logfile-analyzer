@@ -7,7 +7,8 @@
         "test": "echo \"Error: no test specified\" && exit 1",
         "serve-chart": "python -m SimpleHTTPServer 8001",
         "start": "node bin/www",
-        "watch": "nodemon --watch ./ --watch views/ --watch controllers/ --watch public/ --ext js,css ./bin/www"
+        "watch": "nodemon --watch ./ --watch views/ --watch controllers/ --watch public/ --ext js,css ./bin/www",
+        "setup": "mongoimport --db fpv --collection calculations setup.json --drop"
     },
     "repository": {
         "type": "git",

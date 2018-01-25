@@ -16,6 +16,12 @@ Script for automatically analyzing the smart-meter logfiles (Forschungsprojekt V
 2. run `node lib/cli.js` for generating the chart
 3. run `npm run serve-chart` for serving the generated chart on http://localhost:8000/
 
+## Run Web-App
+
+1. Go into project folder
+2. run `npm run setup` for prefill the mongo-db with calculation-data
+3. run `npm start` for serving the app on http://localhost:3100/
+
 ## Cli Usage
 
 Usage: node cli.js [options]
@@ -30,7 +36,3 @@ Usage: node cli.js [options]
     -m, --data-points-method <number>  Which method to choose for the data points, see dataPointsHelper.js, default is useBlockAverage
     -t, --timestamp-offset <number>    Offset for converting all timestamps
     -h, --help                         output usage information
-## Run Web-App
-
-1. Go into project folder
-2. run `npm start` for serving the app on http://localhost:3100/
