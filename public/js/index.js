@@ -112,6 +112,8 @@ const loadPieChart = function() {
 }
 
 $('.pie-chart').ready(function(e) {
-    loadPieChart();
-    loadBarChart();
+    if( $('#pie-chart').length )   {
+        loadPieChart();
+        loadBarChart();
+    }
 });
