@@ -11,37 +11,9 @@ const calculationsModel = require('../models/calculation.model');
 
 // Dashboard
 
-/** @return true, if all necessary data for calculation is entered
- * calculation guideline: https://docs.google.com/document/d/1SF0vrBLKHBzJuAh-gRYZQlBSp0ckI7uhUETIqqISL3M/edit#
- */
-const validateCalculation = calculation => {
-    if (!calculation) return false;
-
-    let eVorher = calculation.eVorher;
-    let eNachher = calculation.eNachher;
-    if (!eVorher || !eNachher) return false;
-
-    if(!eVorher.hasOwnProperty('tLabore') ||
-    !eVorher.hasOwnProperty('eComputerAlt') ||
-    !eVorher.hasOwnProperty('cComputerDurchschnitt')) return false;
-
-    if (!eNachher.hasOwnProperty('eZeroClient') ||
-    !eNachher.hasOwnProperty('tLabore') ||
-    !eNachher.hasOwnProperty('cZeroClientsDurchschnitt') ||
-    !eNachher.hasOwnProperty('eServerraum')) return false
-
-    let eServerraum = eNachher.eServerraum;
-    if (!eServerraum.hasOwnProperty('eSteckdose1') ||
-    !eServerraum.hasOwnProperty('eSteckdose2') ||
-    !eServerraum.hasOwnProperty('tSemester') ||
-    !eServerraum.hasOwnProperty('cServer')) return false;
-
-    return true;
-}
-
-const markSelectedComputerAlt = (options, value) => {
+const markSelected = (options, value, key) => {
     return options.map(option => {
-        option.selectedComputerAlt = JSON.stringify(option._id) === JSON.stringify(value);
+        option[key] = JSON.stringify(option._id) === JSON.stringify(value);
         return option;
     });
 }
@@ -61,20 +33,22 @@ router.get('/', function(req, res, next) {
 
     // retrieve calculation data
     calculationsModel.findOne({_id: "59a3e4a4a2049554a93fec93"}).then(calculation => {
-        let calculationCompleted = validateCalculation(calculation);
         // get available measurements
         measurementsModel.find({}).then(measurements => {
 
             // calculations
+            // calculation guideline: https://docs.google.com/document/d/1SF0vrBLKHBzJuAh-gRYZQlBSp0ckI7uhUETIqqISL3M/edit#
             calculation.eComputerAltUsedEnergy = calculateUsedEnergyPerMinute(measurements, calculation.eVorher.eComputerAlt);
             calculation.eVorherUsedEnergy = Math.round(
                 (calculation.eComputerAltUsedEnergy * calculation.eVorher.tLabore * calculation.eVorher.cComputerDurchschnitt) * 10000) / 10000; // 4 digits
 
-            measurements = markSelectedComputerAlt(measurements, calculation.eVorher.eComputerAlt);
+            measurements = markSelected(measurements, calculation.eVorher.eComputerAlt, 'selectedComputerAlt');
+            measurements = markSelected(measurements, calculation.eNachher.eZeroClient, 'selectedZeroClient');
+            measurements = markSelected(measurements, calculation.eNachher.eServerraum.eSteckdose1, 'selectedSteckdose1');
+            measurements = markSelected(measurements, calculation.eNachher.eServerraum.eSteckdose2, 'selectedSteckdose2');
 
             return res.render('dashboard/dashboard', {
                 title: 'Dashboard',
-                calculationCompleted,
                 calculation,
                 measurements
             });
@@ -83,12 +57,26 @@ router.get('/', function(req, res, next) {
 });
 
 router.patch('/evorher/:id', function(req, res, next) {
-    console.log('here');
+    let calculationId = req.params.id;
+    let calculationPatch = req.body;
+
+    calculationsModel.findOne({_id: calculationId}).then(calculation => {
+        for(key in calculationPatch) {
+            calculation.eVorher[key] = calculationPatch[key];
+        }
+
+        calculation.save().then(_ => {
+            res.redirect('/');
+        })
+    });
+});
+
+router.patch('/enachher/:id', function(req, res, next) {
     let calculationId = req.params.id;
     let calculationPatch = req.body;
     calculationsModel.findOne({_id: calculationId}).then(calculation => {
         for(key in calculationPatch) {
-            calculation.eVorher[key] = calculationPatch[key];
+            calculation.eNachher[key] = calculationPatch[key];
         }
 
         calculation.save().then(_ => {

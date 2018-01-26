@@ -3,13 +3,6 @@
         <div class="content">
             <div class="container-fluid">
                 <div class="row">
-                    {{#unless calculationCompleted}}
-                        <p class="text-muted">
-                        <b>Achtung: </b>Die Berechnungsdaten sind nicht vollständig! Erst mit allen notwendigen Daten, wird die Auswertung generiert.
-                        </p>
-                    {{/unless}}
-                </div>
-                <div class="row">
                     <h4>Alter Zustand (physische PCs)</h4>
                     <a data-toggle="collapse" href="#collapseOld" aria-expanded="false" aria-controls="collapseOld">
                         <h5>Berechnung</h5>
@@ -31,7 +24,7 @@
                                      </div>
 
                                      <div class="form-group">
-                                        <label>Nutzungszeit Labore <b>T<sub>Labore</sub></b></label>
+                                        <label>Nutzungszeit Labore <b>T<sub>Labore</sub></b> in Minuten</label>
                                         <input class="form-control" name="tLabore" type="number" value="{{calculation.eVorher.tLabore}}" required/>
                                      </div>
 
@@ -50,16 +43,16 @@
                                 <b class="title"><i class="pe-7s-calculator"></i> Ergebnisrechnung</b>
                                 <br>
                                 <div class="centered-text">
+                                    <p>E<sub>vorher</sub> = E<sub>ComputerAlt</sub> ⋅ T<sub>Labore</sub> ⋅ C<sub>ComputerDurchschnitt</sub></p>
+                                    <p><b>=</b></p>
+                                    <p>{{calculation.eComputerAltUsedEnergy}} kWh / min ⋅ {{calculation.eVorher.tLabore}} min ⋅ {{calculation.eVorher.cComputerDurchschnitt}}</p>
+                                    <p><b>=</b></p>
                                     {{#if calculation.eVorherUsedEnergy}}
-                                        <p>E<sub>vorher</sub> = E<sub>ComputerAlt</sub> ⋅ T<sub>Labore</sub> ⋅ C<sub>ComputerDurchschnitt</sub></p>
-                                        <p><b>=</b></p>
-                                        <p>{{calculation.eComputerAltUsedEnergy}} kWh / min ⋅ {{calculation.eVorher.tLabore}} min ⋅ {{calculation.eVorher.cComputerDurchschnitt}}</p>
-                                        <p><b>=</b></p>
                                         <p>{{calculation.eVorherUsedEnergy}} kWh </p>
                                     {{else}}
                                         <p class="text-muted">
                                             Die Berechnungsdaten sind nicht vollständig! Erst mit allen notwendigen Daten, wird die Auswertung generiert.
-                                         </p>
+                                        </p>
                                     {{/if}}
                                 </div>
                             </div>
@@ -75,7 +68,85 @@
                     </a>
                     <div class="collapse" id="collapseNew">
                         <div class="card card-body">
-                            Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident.
+                            <div class="calculation-data">
+                                <b class="title"><i class="pe-7s-config"></i> Berechnungsdaten verwalten</b>
+                                <br>
+                                <form action="/dashboard/enachher/{{calculation._id}}" method="post">
+                                    <input name="_method" type="hidden" value="PATCH">
+                                    <div class="form-group">
+                                        <label>Messung für Energieverbrauch Zero-Client <b>E<sub>ZeroClient</sub></b></label>
+                                        <select class="form-control" id="eZeroClient" name="eZeroClient" required>
+                                            {{#each measurements}}
+                                                <option value="{{_id}}" {{#if selectedZeroClient}}selected{{/if}}>{{label}}</option>
+                                            {{/each}}
+                                        </select>
+                                     </div>
+
+                                     <div class="form-group">
+                                        <label>Nutzungszeit Labore <b>T<sub>Labore</sub></b> in Minuten</label>
+                                        <input class="form-control" name="tLabore" type="number" value="{{calculation.eNachher.tLabore}}" required/>
+                                     </div>
+
+                                     <div class="form-group">
+                                        <label>Anzahl Zero-Clients pro Labor <b>C<sub>ZeroClientsDurchschnitt</sub></b></label>
+                                        <input class="form-control" name="cZeroClientsDurchschnitt" type="number" placeholder="15" value="{{calculation.eNachher.cZeroClientsDurchschnitt}}" required/>
+                                     </div>
+
+                                     <hr>
+
+                                     <div class="form-group">
+                                        <label>Messung für Energieverbrauch Server (1) <b>E<sub>Steckdose1</sub></b></label>
+                                        <select class="form-control" id="eSteckdose1" name="eServerraum[eSteckdose1]" required>
+                                            {{#each measurements}}
+                                                <option value="{{_id}}" {{#if selectedSteckdose1}}selected{{/if}}>{{label}}</option>
+                                            {{/each}}
+                                        </select>
+                                     </div>
+
+                                     <div class="form-group">
+                                        <label>Messung für Energieverbrauch Server (2) <b>E<sub>Steckdose2</sub></b></label>
+                                        <select class="form-control" id="eSteckdose1" name="eServerraum[eSteckdose2]" required>
+                                            {{#each measurements}}
+                                                <option value="{{_id}}" {{#if selectedSteckdose2}}selected{{/if}}>{{label}}</option>
+                                            {{/each}}
+                                        </select>
+                                     </div>
+
+                                     <div class="form-group">
+                                        <label>Semesterzeit <b>T<sub>Semester</sub></b> in Minuten</label>
+                                        <input class="form-control" name="eServerraum[tSemester]" type="number" value="{{calculation.eNachher.eServerraum.tSemester}}" required/>
+                                     </div>
+
+                                     <div class="form-group">
+                                        <label>Anzahl Server <b>C<sub>Server</sub></b></label>
+                                        <input class="form-control" name="eServerraum[cServer]" type="number" placeholder="15" value="{{calculation.eNachher.eServerraum.cServer}}" required/>
+                                     </div>
+
+                                     <button type="submit" class="btn btn-primary btn-submit">
+                                        Speichern
+                                    </button>
+                                </form>
+                            </div>
+                            <hr>
+                            <div class="calculation-formular">
+                                <b class="title"><i class="pe-7s-calculator"></i> Ergebnisrechnung</b>
+                                <br>
+                                <div class="centered-text">
+                                    <p>E<sub>Serverraum</sub> = E<sub>Steckdose1</sub> ⋅ E<sub>Steckdose1</sub> ⋅ T<sub>Semester</sub> ⋅ C<sub>Server</sub></p>
+
+                                    <p>E<sub>nachher</sub> = E<sub>ZeroClient</sub> ⋅ T<sub>Labore</sub> ⋅ C<sub>ZeroClientsDurchschnitt</sub> + E<sub>Serverraum</sub></p>
+                                    <p><b>=</b></p>
+                                    <p>{{calculation.eComputerAltUsedEnergy}} kWh / min ⋅ {{calculation.eVorher.tLabore}} min ⋅ {{calculation.eVorher.cComputerDurchschnitt}}</p>
+                                    <p><b>=</b></p>
+                                    {{#if calculation.eNachherUsedEnergy}}
+                                        <p>{{calculation.eNachherUsedEnergy}} kWh </p>
+                                    {{else}}
+                                        <p class="text-muted">
+                                            Die Berechnungsdaten sind nicht vollständig! Erst mit allen notwendigen Daten, wird die Auswertung generiert.
+                                        </p>
+                                    {{/if}}
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <h5>Auswertung</h5>

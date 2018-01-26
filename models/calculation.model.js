@@ -19,7 +19,7 @@ const eServerraumSchema = new Schema({
 });
 
 const eNachherSchema = new Schema({
-    eZeroclient: { type: Schema.Types.ObjectId, ref: 'measurement' },
+    eZeroClient: { type: Schema.Types.ObjectId, ref: 'measurement' },
     tLabore: { type: Number },
     cZeroClientsDurchschnitt: { type: Number },
     eServerraum: eServerraumSchema
