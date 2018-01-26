@@ -48,7 +48,7 @@
                                     <p>{{calculation.eComputerAltUsedEnergy}} kWh / min ⋅ {{calculation.eVorher.tLabore}} min ⋅ {{calculation.eVorher.cComputerDurchschnitt}}</p>
                                     <p><b>=</b></p>
                                     {{#if calculation.eVorherUsedEnergy}}
-                                        <p>{{calculation.eVorherUsedEnergy}} kWh </p>
+                                        <p class="badge badge-secondary badge-result">{{calculation.eVorherUsedEnergy}} kWh </p>
                                     {{else}}
                                         <p class="text-muted">
                                             Die Berechnungsdaten sind nicht vollständig! Erst mit allen notwendigen Daten, wird die Auswertung generiert.
@@ -59,6 +59,12 @@
                         </div>
                     </div>
                     <h5>Auswertung</h5>
+                    <div class="card card-body">
+                        <div class="centered-text evaluation">
+                            <p class="text-muted">(errechneter) Stromverbrauch pro Semester</p>
+                            <p class="big-number">{{calculation.eVorherUsedEnergy}} kWh</p>
+                        </div>
+                    </div>
                 </div>
 
                 <div class="row">
@@ -137,19 +143,31 @@
                                     <p>({{calculation.eSteckdose1UsedEnergy}} kWh / min + {{calculation.eSteckdose2UsedEnergy}} kWh / min) ⋅ {{calculation.eNachher.eServerraum.tSemester}} min ⋅ {{calculation.eNachher.eServerraum.cServer}}</p>
                                     <p><b>=</b></p>
                                     {{#if calculation.eServerraumUsedEnergy}}
-                                        <p>{{calculation.eServerraumUsedEnergy}} kWh </p>
+                                        <p class="badge badge-secondary badge-result">{{calculation.eServerraumUsedEnergy}} kWh </p>
                                     {{else}}
                                         <p class="text-muted">
                                             Die Berechnungsdaten sind nicht vollständig! Erst mit allen notwendigen Daten, wird die Auswertung generiert.
                                         </p>
                                     {{/if}}
                                     <hr>
-                                    <p>E<sub>nachher</sub> = E<sub>ZeroClient</sub> ⋅ T<sub>Labore</sub> ⋅ C<sub>ZeroClientsDurchschnitt</sub> + E<sub>Serverraum</sub></p>
+                                    <p>E<sub>ZeroClients</sub> = E<sub>ZeroClient</sub> ⋅ T<sub>Labore</sub> ⋅ C<sub>ZeroClientsDurchschnitt</sub></p>
                                     <p><b>=</b></p>
-                                    <p>{{calculation.eZeroClientUsedEnergy}} kWh / min ⋅ {{calculation.eNachher.tLabore}} min ⋅ {{calculation.eNachher.cZeroClientsDurchschnitt}} + {{calculation.eServerraumUsedEnergy}} kWh</p>
+                                    <p>{{calculation.eZeroClientUsedEnergy}} kWh / min ⋅ {{calculation.eNachher.tLabore}} min ⋅ {{calculation.eNachher.cZeroClientsDurchschnitt}}</p>
+                                    <p><b>=</b></p>
+                                    {{#if calculation.eZeroClientsUsedEnergy}}
+                                        <p class="badge badge-secondary badge-result">{{calculation.eZeroClientsUsedEnergy}} kWh </p>
+                                    {{else}}
+                                        <p class="text-muted">
+                                            Die Berechnungsdaten sind nicht vollständig! Erst mit allen notwendigen Daten, wird die Auswertung generiert.
+                                        </p>
+                                    {{/if}}
+                                    <hr>
+                                    <p>E<sub>nachher</sub> = E<sub>ZeroClients</sub>+ E<sub>Serverraum</sub></p>
+                                    <p><b>=</b></p>
+                                    <p>{{calculation.eZeroClientsUsedEnergy}} kWh + {{calculation.eServerraumUsedEnergy}} kWh</p>
                                     <p><b>=</b></p>
                                     {{#if calculation.eNachherUsedEnergy}}
-                                        <p>{{calculation.eNachherUsedEnergy}} kWh </p>
+                                        <p class="badge badge-secondary badge-result">{{calculation.eNachherUsedEnergy}} kWh </p>
                                     {{else}}
                                         <p class="text-muted">
                                             Die Berechnungsdaten sind nicht vollständig! Erst mit allen notwendigen Daten, wird die Auswertung generiert.
@@ -160,6 +178,27 @@
                         </div>
                     </div>
                     <h5>Auswertung</h5>
+                    <div class="card card-body">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="centered-text evaluation">
+                                    <p class="text-muted">(errechneter) Stromverbrauch der Server pro Semester</p>
+                                    <p class="big-number">{{calculation.eServerraumUsedEnergy}} kWh</p>
+                                </div>
+                            </div>
+                             <div class="col-md-6">
+                                <div class="centered-text evaluation">
+                                    <p class="text-muted">(errechneter) Stromverbrauch der Zero-Clients pro Semester</p>
+                                    <p class="big-number">{{calculation.eZeroClientsUsedEnergy}} kWh</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="ct-chart ct-major-tenth pie-chart" 
+                                data-serverraum="{{calculation.eServerraumUsedEnergy}}"
+                                data-zeroclients="{{calculation.eZeroClientsUsedEnergy}}"></div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

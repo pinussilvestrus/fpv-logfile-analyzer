@@ -58,3 +58,46 @@ p {
     font-size: 1.5rem;
     font-weight: bold;
 }
+
+.badge-result {
+    display: block;
+    margin-left: 40%;
+    font-size: 2rem;
+    margin-right: 40%;
+    background-color: #4466BA;
+}
+
+.big-number {
+    font-size: 5rem;
+    color: #4466BA;
+    font-weight: lighter;
+}
+
+.evaluation {
+    padding-top: 3rem;
+}
+
+.pie-chart {
+    margin: auto !important;
+    top: -8rem !important;
+}
+
+.pie-chart .ct-label {
+    font-size: 2rem;
+    fill: whitesmoke;
+    color: whitesmoke;
+}
+
+.pie-chart svg {
+    position: relative;
+    margin: auto;
+    padding-top: 5px;
+}
+
+.pie-chart .ct-series-a .ct-slice-pie {
+    fill: #4466BA;
+}
+
+.pie-chart .ct-series-b .ct-slice-pie {
+    fill: #161c6d;
+}

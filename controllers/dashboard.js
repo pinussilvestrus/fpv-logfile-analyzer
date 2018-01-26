@@ -50,8 +50,12 @@ router.get('/', function(req, res, next) {
                 10000) / 10000; // 4 digits
 
             calculation.eZeroClientUsedEnergy = calculateUsedEnergyPerMinute(measurements, calculation.eNachher.eZeroClient);
+            calculation.eZeroClientsUsedEnergy = Math.round(
+                (calculation.eZeroClientUsedEnergy * calculation.eNachher.tLabore * calculation.eNachher.cZeroClientsDurchschnitt) *
+                10000) / 10000; // 4 digits
+
             calculation.eNachherUsedEnergy = Math.round(
-                (calculation.eZeroClientUsedEnergy * calculation.eNachher.tLabore * calculation.eNachher.cZeroClientsDurchschnitt + calculation.eServerraumUsedEnergy) *
+                (calculation.eZeroClientsUsedEnergy + calculation.eServerraumUsedEnergy) *
                 10000) / 10000; // 4 digits
 
             // selection
