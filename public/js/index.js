@@ -111,7 +111,7 @@ const loadPieChart = function() {
     new Chartist.Pie('.pie-chart', data, options);
 }
 
-$(document).ready(function(e) {
+$('.pie-chart').ready(function(e) {
     loadPieChart();
     loadBarChart();
 });
