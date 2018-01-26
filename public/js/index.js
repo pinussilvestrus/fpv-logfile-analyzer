@@ -51,8 +51,8 @@ const loadPieChart = function() {
     };
 
     let options = {
-        width: 400,
-        height: 600
+        width: 300,
+        height: 400
     };
 
     let responsiveOptions = [

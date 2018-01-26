@@ -193,8 +193,16 @@
                                 </div>
                             </div>
                         </div>
+                        <hr>
                         <div class="row">
-                            <div class="ct-chart ct-major-tenth pie-chart" 
+                            <div class="centered-text evaluation">
+                                <p class="text-muted">(errechneter) Stromverbrauch gesamt pro Semester</p>
+                                <p class="big-number">{{calculation.eNachherUsedEnergy}} kWh</p>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="ct-chart ct-double-octave pie-chart" 
                                 data-serverraum="{{calculation.eServerraumUsedEnergy}}"
                                 data-zeroclients="{{calculation.eZeroClientsUsedEnergy}}"></div>
                         </div>
