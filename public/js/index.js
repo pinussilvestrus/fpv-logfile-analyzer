@@ -42,6 +42,44 @@ $('a[data-method="delete-material"]').on('click', function(e) {
     });
 });
 
+const loadBarChart = function() {
+    let $barChart = $('.bar-chart');
+
+    let data = {
+        labels: ['vorher', 'nachher'],
+        series: [
+            [$barChart.data('vorher'), $barChart.data('nachher')]
+        ]
+    };
+
+    let options = {
+        width: 800,
+        height: 800,
+        chartPadding: {
+            top: 20,
+            right: 50,
+            bottom: 30,
+            left: 50
+        },
+        plugins: [
+            Chartist.plugins.ctAxisTitle({
+                axisY: {
+                    axisTitle: 'Energie in kWh',
+                    axisClass: 'ct-axis-title',
+                    offset: {
+                        x: 0,
+                        y: -20
+                    },
+                    textAnchor: 'middle',
+                    flipTitle: false
+                }
+            })
+        ]
+    };
+
+    new Chartist.Bar('.bar-chart', data, options);
+};
+
 const loadPieChart = function() {
     let $pieChart = $('.pie-chart');
 
@@ -70,9 +108,10 @@ const loadPieChart = function() {
         }]
     ];
 
-    new Chartist.Pie('.ct-chart', data, options);
+    new Chartist.Pie('.pie-chart', data, options);
 }
 
 $(document).ready(function(e) {
     loadPieChart();
+    loadBarChart();
 });

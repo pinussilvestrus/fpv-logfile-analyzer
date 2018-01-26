@@ -80,6 +80,7 @@ p {
 .pie-chart {
     margin: auto !important;
     top: -4rem !important;
+    height: 35rem !important;
 }
 
 .pie-chart .ct-label {
@@ -100,4 +101,29 @@ p {
 
 .pie-chart .ct-series-b .ct-slice-pie {
     fill: #161c6d;
+}
+
+.bar-chart {
+    margin: auto !important;
+    height: 80rem !important;
+    top: 1rem !important;
+}
+
+.bar-chart svg {
+    position: relative;
+    margin: auto;
+    padding-top: 5px;
+}
+
+.bar-chart .ct-label {
+    font-size: 1.5rem;
+}
+
+.bar-chart .ct-axis-title {
+    font-size: 2rem;
+}
+
+.bar-chart .ct-series-a .ct-bar {
+    background-color: #4466BA;
+    stroke: #4466BA;
 }
