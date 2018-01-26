@@ -53,3 +53,8 @@ p {
 .calculation-data label {
     text-transform: none;
 }
+
+.calculation-formular .title, .calculation-data .title {
+    font-size: 1.5rem;
+    font-weight: bold;
+}

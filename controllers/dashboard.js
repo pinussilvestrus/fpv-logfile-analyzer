@@ -3,6 +3,7 @@
  */
 
 const express = require('express');
+const _ = require('lodash');
 const router = express.Router();
 const analyzer = require('../lib/index');
 const measurementsModel = require('../models/measurement.model');
@@ -45,6 +46,17 @@ const markSelectedComputerAlt = (options, value) => {
     });
 }
 
+const calculateUsedEnergyPerMinute = (measurements, id) => {
+    let result;
+   _.forEach(measurements, m => {
+       if (JSON.stringify(m._id) === JSON.stringify(id)) {
+           m.statistics.usedEnergykWh = m.statistics.usedEnergy / 1000;
+           result = Math.round((m.statistics.usedEnergykWh / m.statistics.calculatedMinutes) * 1000000) / 1000000; // 6 digits
+       }
+   });
+   return result;
+}
+
 router.get('/', function(req, res, next) {
 
     // retrieve calculation data
@@ -52,6 +64,11 @@ router.get('/', function(req, res, next) {
         let calculationCompleted = validateCalculation(calculation);
         // get available measurements
         measurementsModel.find({}).then(measurements => {
+
+            // calculations
+            calculation.eComputerAltUsedEnergy = calculateUsedEnergyPerMinute(measurements, calculation.eVorher.eComputerAlt);
+            calculation.eVorherUsedEnergy = Math.round(
+                (calculation.eComputerAltUsedEnergy * calculation.eVorher.tLabore * calculation.eVorher.cComputerDurchschnitt) * 10000) / 10000; // 4 digits
 
             measurements = markSelectedComputerAlt(measurements, calculation.eVorher.eComputerAlt);
 

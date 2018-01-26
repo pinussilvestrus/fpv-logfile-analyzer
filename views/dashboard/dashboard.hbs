@@ -17,7 +17,7 @@
                     <div class="collapse" id="collapseOld">
                         <div class="card card-body">
                             <div class="calculation-data">
-                                <b>Berechnungsdaten verwalten</b>
+                                <b class="title"><i class="pe-7s-config"></i> Berechnungsdaten verwalten</b>
                                 <br>
                                 <form action="/dashboard/evorher/{{calculation._id}}" method="post">
                                     <input name="_method" type="hidden" value="PATCH">
@@ -47,10 +47,20 @@
                             </div>
                             <hr>
                             <div class="calculation-formular">
-                                <b>Ergebnisrechnung</b>
+                                <b class="title"><i class="pe-7s-calculator"></i> Ergebnisrechnung</b>
                                 <br>
                                 <div class="centered-text">
-                                    <p>E<sub>vorher</sub> = E<sub>ComputerAlt</sub> ⋅ T<sub>Labore</sub> ⋅ C<sub>ComputerDurchschnitt</sub></p>
+                                    {{#if calculation.eVorherUsedEnergy}}
+                                        <p>E<sub>vorher</sub> = E<sub>ComputerAlt</sub> ⋅ T<sub>Labore</sub> ⋅ C<sub>ComputerDurchschnitt</sub></p>
+                                        <p><b>=</b></p>
+                                        <p>{{calculation.eComputerAltUsedEnergy}} kWh / min ⋅ {{calculation.eVorher.tLabore}} min ⋅ {{calculation.eVorher.cComputerDurchschnitt}}</p>
+                                        <p><b>=</b></p>
+                                        <p>{{calculation.eVorherUsedEnergy}} kWh </p>
+                                    {{else}}
+                                        <p class="text-muted">
+                                            Die Berechnungsdaten sind nicht vollständig! Erst mit allen notwendigen Daten, wird die Auswertung generiert.
+                                         </p>
+                                    {{/if}}
                                 </div>
                             </div>
                         </div>
