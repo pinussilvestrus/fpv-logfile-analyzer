@@ -132,11 +132,21 @@
                                 <b class="title"><i class="pe-7s-calculator"></i> Ergebnisrechnung</b>
                                 <br>
                                 <div class="centered-text">
-                                    <p>E<sub>Serverraum</sub> = E<sub>Steckdose1</sub> ⋅ E<sub>Steckdose1</sub> ⋅ T<sub>Semester</sub> ⋅ C<sub>Server</sub></p>
-
+                                    <p>E<sub>Serverraum</sub> = (E<sub>Steckdose1</sub> + E<sub>Steckdose1</sub>) ⋅ T<sub>Semester</sub> ⋅ C<sub>Server</sub></p>
+                                    <p><b>=</b></p>
+                                    <p>({{calculation.eSteckdose1UsedEnergy}} kWh / min + {{calculation.eSteckdose2UsedEnergy}} kWh / min) ⋅ {{calculation.eNachher.eServerraum.tSemester}} min ⋅ {{calculation.eNachher.eServerraum.cServer}}</p>
+                                    <p><b>=</b></p>
+                                    {{#if calculation.eServerraumUsedEnergy}}
+                                        <p>{{calculation.eServerraumUsedEnergy}} kWh </p>
+                                    {{else}}
+                                        <p class="text-muted">
+                                            Die Berechnungsdaten sind nicht vollständig! Erst mit allen notwendigen Daten, wird die Auswertung generiert.
+                                        </p>
+                                    {{/if}}
+                                    <hr>
                                     <p>E<sub>nachher</sub> = E<sub>ZeroClient</sub> ⋅ T<sub>Labore</sub> ⋅ C<sub>ZeroClientsDurchschnitt</sub> + E<sub>Serverraum</sub></p>
                                     <p><b>=</b></p>
-                                    <p>{{calculation.eComputerAltUsedEnergy}} kWh / min ⋅ {{calculation.eVorher.tLabore}} min ⋅ {{calculation.eVorher.cComputerDurchschnitt}}</p>
+                                    <p>{{calculation.eZeroClientUsedEnergy}} kWh / min ⋅ {{calculation.eNachher.tLabore}} min ⋅ {{calculation.eNachher.cZeroClientsDurchschnitt}} + {{calculation.eServerraumUsedEnergy}} kWh</p>
                                     <p><b>=</b></p>
                                     {{#if calculation.eNachherUsedEnergy}}
                                         <p>{{calculation.eNachherUsedEnergy}} kWh </p>

@@ -20,19 +20,19 @@ const markSelected = (options, value, key) => {
 
 const calculateUsedEnergyPerMinute = (measurements, id) => {
     let result;
-   _.forEach(measurements, m => {
-       if (JSON.stringify(m._id) === JSON.stringify(id)) {
-           m.statistics.usedEnergykWh = m.statistics.usedEnergy / 1000;
-           result = Math.round((m.statistics.usedEnergykWh / m.statistics.calculatedMinutes) * 1000000) / 1000000; // 6 digits
-       }
-   });
-   return result;
+    _.forEach(measurements, m => {
+        if (JSON.stringify(m._id) === JSON.stringify(id)) {
+            m.statistics.usedEnergykWh = m.statistics.usedEnergy / 1000;
+            result = Math.round((m.statistics.usedEnergykWh / m.statistics.calculatedMinutes) * 1000000) / 1000000; // 6 digits
+        }
+    });
+    return result;
 }
 
 router.get('/', function(req, res, next) {
 
     // retrieve calculation data
-    calculationsModel.findOne({_id: "59a3e4a4a2049554a93fec93"}).then(calculation => {
+    calculationsModel.findOne({ _id: "59a3e4a4a2049554a93fec93" }).then(calculation => {
         // get available measurements
         measurementsModel.find({}).then(measurements => {
 
@@ -40,8 +40,21 @@ router.get('/', function(req, res, next) {
             // calculation guideline: https://docs.google.com/document/d/1SF0vrBLKHBzJuAh-gRYZQlBSp0ckI7uhUETIqqISL3M/edit#
             calculation.eComputerAltUsedEnergy = calculateUsedEnergyPerMinute(measurements, calculation.eVorher.eComputerAlt);
             calculation.eVorherUsedEnergy = Math.round(
-                (calculation.eComputerAltUsedEnergy * calculation.eVorher.tLabore * calculation.eVorher.cComputerDurchschnitt) * 10000) / 10000; // 4 digits
+                (calculation.eComputerAltUsedEnergy * calculation.eVorher.tLabore * calculation.eVorher.cComputerDurchschnitt) *
+                10000) / 10000; // 4 digits
 
+            calculation.eSteckdose1UsedEnergy = calculateUsedEnergyPerMinute(measurements, calculation.eNachher.eServerraum.eSteckdose1);
+            calculation.eSteckdose2UsedEnergy = calculateUsedEnergyPerMinute(measurements, calculation.eNachher.eServerraum.eSteckdose2);
+            calculation.eServerraumUsedEnergy = Math.round(
+                ((calculation.eSteckdose1UsedEnergy + calculation.eSteckdose2UsedEnergy) * calculation.eNachher.eServerraum.tSemester * calculation.eNachher.eServerraum.cServer) *
+                10000) / 10000; // 4 digits
+
+            calculation.eZeroClientUsedEnergy = calculateUsedEnergyPerMinute(measurements, calculation.eNachher.eZeroClient);
+            calculation.eNachherUsedEnergy = Math.round(
+                (calculation.eZeroClientUsedEnergy * calculation.eNachher.tLabore * calculation.eNachher.cZeroClientsDurchschnitt + calculation.eServerraumUsedEnergy) *
+                10000) / 10000; // 4 digits
+
+            // selection
             measurements = markSelected(measurements, calculation.eVorher.eComputerAlt, 'selectedComputerAlt');
             measurements = markSelected(measurements, calculation.eNachher.eZeroClient, 'selectedZeroClient');
             measurements = markSelected(measurements, calculation.eNachher.eServerraum.eSteckdose1, 'selectedSteckdose1');
@@ -60,8 +73,8 @@ router.patch('/evorher/:id', function(req, res, next) {
     let calculationId = req.params.id;
     let calculationPatch = req.body;
 
-    calculationsModel.findOne({_id: calculationId}).then(calculation => {
-        for(key in calculationPatch) {
+    calculationsModel.findOne({ _id: calculationId }).then(calculation => {
+        for (key in calculationPatch) {
             calculation.eVorher[key] = calculationPatch[key];
         }
 
@@ -74,8 +87,8 @@ router.patch('/evorher/:id', function(req, res, next) {
 router.patch('/enachher/:id', function(req, res, next) {
     let calculationId = req.params.id;
     let calculationPatch = req.body;
-    calculationsModel.findOne({_id: calculationId}).then(calculation => {
-        for(key in calculationPatch) {
+    calculationsModel.findOne({ _id: calculationId }).then(calculation => {
+        for (key in calculationPatch) {
             calculation.eNachher[key] = calculationPatch[key];
         }
 
