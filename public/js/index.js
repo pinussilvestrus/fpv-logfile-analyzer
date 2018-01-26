@@ -112,7 +112,7 @@ const loadPieChart = function() {
 }
 
 $('.pie-chart').ready(function(e) {
-    if( $('#pie-chart').length )   {
+    if( $('.pie-chart').length )   {
         loadPieChart();
         loadBarChart();
     }
