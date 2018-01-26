@@ -5,7 +5,7 @@
                 <div class="row">
                     {{#unless calculationCompleted}}
                         <p class="text-muted">
-                        <b>Achtung: </b>Die Berechnungsdaten sind nicht vollständig!
+                        <b>Achtung: </b>Die Berechnungsdaten sind nicht vollständig! Erst mit allen notwendigen Daten, wird die Auswertung generiert.
                         </p>
                     {{/unless}}
                 </div>
@@ -16,7 +16,43 @@
                     </a>
                     <div class="collapse" id="collapseOld">
                         <div class="card card-body">
-                            Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident.
+                            <div class="calculation-data">
+                                <b>Berechnungsdaten verwalten</b>
+                                <br>
+                                <form action="/dashboard/evorher/{{calculation._id}}" method="post">
+                                    <input name="_method" type="hidden" value="PATCH">
+                                    <div class="form-group">
+                                        <label>Messung für Energieverbrauch alter Computer <b>E<sub>ComputerAlt</sub></b></label>
+                                        <select class="form-control" id="eComputerAlt" name="eComputerAlt" required>
+                                            {{#each measurements}}
+                                                <option value="{{_id}}" {{#if selectedComputerAlt}}selected{{/if}}>{{label}}</option>
+                                            {{/each}}
+                                        </select>
+                                     </div>
+
+                                     <div class="form-group">
+                                        <label>Nutzungszeit Labore <b>T<sub>Labore</sub></b></label>
+                                        <input class="form-control" name="tLabore" type="number" value="{{calculation.eVorher.tLabore}}" required/>
+                                     </div>
+
+                                     <div class="form-group">
+                                        <label>Anzahl Computer pro Labor <b>C<sub>ComputerDurchschnitt</sub></b></label>
+                                        <input class="form-control" name="cComputerDurchschnitt" type="number" placeholder="15" value="{{calculation.eVorher.cComputerDurchschnitt}}" required/>
+                                     </div>
+
+                                     <button type="submit" class="btn btn-primary btn-submit">
+                                        Speichern
+                                    </button>
+                                </form>
+                            </div>
+                            <hr>
+                            <div class="calculation-formular">
+                                <b>Ergebnisrechnung</b>
+                                <br>
+                                <div class="centered-text">
+                                    <p>E<sub>vorher</sub> = E<sub>ComputerAlt</sub> ⋅ T<sub>Labore</sub> ⋅ C<sub>ComputerDurchschnitt</sub></p>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <h5>Auswertung</h5>

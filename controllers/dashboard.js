@@ -38,19 +38,46 @@ const validateCalculation = calculation => {
     return true;
 }
 
+const markSelectedComputerAlt = (options, value) => {
+    return options.map(option => {
+        option.selectedComputerAlt = JSON.stringify(option._id) === JSON.stringify(value);
+        return option;
+    });
+}
+
 router.get('/', function(req, res, next) {
 
     // retrieve calculation data
     calculationsModel.findOne({_id: "59a3e4a4a2049554a93fec93"}).then(calculation => {
         let calculationCompleted = validateCalculation(calculation);
-        console.log(calculation);
-        console.log(calculationCompleted);
-        
-        return res.render('dashboard/dashboard', {
-            title: 'Dashboard',
-            calculationCompleted
+        // get available measurements
+        measurementsModel.find({}).then(measurements => {
+
+            measurements = markSelectedComputerAlt(measurements, calculation.eVorher.eComputerAlt);
+
+            return res.render('dashboard/dashboard', {
+                title: 'Dashboard',
+                calculationCompleted,
+                calculation,
+                measurements
+            });
         });
     })
+});
+
+router.patch('/evorher/:id', function(req, res, next) {
+    console.log('here');
+    let calculationId = req.params.id;
+    let calculationPatch = req.body;
+    calculationsModel.findOne({_id: calculationId}).then(calculation => {
+        for(key in calculationPatch) {
+            calculation.eVorher[key] = calculationPatch[key];
+        }
+
+        calculation.save().then(_ => {
+            res.redirect('/');
+        })
+    });
 });
 
 module.exports = router;
