@@ -6,7 +6,7 @@
   "scripts": {
     "test": "npm run lint && npm run mocha",
     "lint": "eslint lib/. test/. controllers/. --config .eslintrc.json --fix",
-    "mocha": "mocha --require ./test/testHelper.js test/ --recursive",
+    "mocha": "mocha --require babel-core/register test/ --recursive",
     "serve-chart": "python -m SimpleHTTPServer 8001",
     "start": "node bin/www",
     "watch": "nodemon --watch ./ --watch views/ --watch controllers/ --watch public/ --ext js,css ./bin/www",
