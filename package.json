@@ -6,7 +6,7 @@
   "scripts": {
     "test": "npm run lint && npm run mocha",
     "lint": "eslint lib/. test/. controllers/. --config .eslintrc.json --fix",
-    "mocha": "mocha --require babel-core/register test/ --recursive",
+    "mocha": "mocha --require babel-core/register test/**/*.test.js --recursive",
     "serve-chart": "python -m SimpleHTTPServer 8001",
     "start": "node bin/www",
     "watch": "nodemon --watch ./ --watch views/ --watch controllers/ --watch public/ --ext js,css ./bin/www",
@@ -33,6 +33,7 @@
     "babel-preset-stage-2": "^6.24.1",
     "body-parser": "^1.18.2",
     "chai": "^4.1.2",
+    "chai-http": "^3.0.0",
     "commander": "^2.12.2",
     "es6-promisify": "^5.0.0",
     "eslint": "^4.16.0",
