@@ -127,3 +127,12 @@ p {
     background-color: #4466BA;
     stroke: #4466BA;
 }
+
+.statistics {
+    font-size: 2rem;
+}
+
+.float-right {
+    float: right;
+    line-height: 0.2;
+}

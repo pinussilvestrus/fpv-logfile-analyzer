@@ -65,6 +65,7 @@ router.get('/:id/', function(req, res, next) {
 
             convertWhTokWh(result.statistics);
             calculateUsedEnergyPerMinute(result.statistics);
+            result.statistics.co2emission = analyzer.calculateCO2Emission(result.statistics.usedEnergykWh);
 
             return res.render('measurements/measurement', {
                 title: result.label,
