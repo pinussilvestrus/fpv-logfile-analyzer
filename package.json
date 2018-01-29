@@ -1,41 +1,55 @@
 {
-    "name": "fpv-logfile-analyzer",
-    "version": "1.0.0",
-    "description": "Script for automatically analyzing the smart-meter logfiles (Forschungsprojekt Virtualisierung HS-Harz)",
-    "main": "index.js",
-    "scripts": {
-        "test": "echo \"Error: no test specified\" && exit 1",
-        "serve-chart": "python -m SimpleHTTPServer 8001",
-        "start": "node bin/www",
-        "watch": "nodemon --watch ./ --watch views/ --watch controllers/ --watch public/ --ext js,css ./bin/www",
-        "setup": "mongoimport --db fpv --collection calculations setup.json --drop"
-    },
-    "repository": {
-        "type": "git",
-        "url": "git+https://github.com/pinussilvestrus/fpv-logfile-analyzer.git"
-    },
-    "author": "",
-    "license": "GPL-3.0",
-    "bugs": {
-        "url": "https://github.com/pinussilvestrus/fpv-logfile-analyzer/issues"
-    },
-    "homepage": "https://github.com/pinussilvestrus/fpv-logfile-analyzer#readme",
-    "dependencies": {
-        "body-parser": "^1.18.2",
-        "commander": "^2.12.2",
-        "es6-promisify": "^5.0.0",
-        "express": "^4.16.2",
-        "formidable": "^1.1.1",
-        "handlebars": "^4.0.11",
-        "handlebars-layouts": "^3.1.4",
-        "handlebars-wax": "^6.1.0",
-        "method-override": "^2.3.10",
-        "moment": "^2.20.1",
-        "mongoose": "^5.0.0",
-        "node-chartist": "^1.0.5",
-        "promisify-fs": "^1.0.39",
-        "serve-favicon": "^2.4.5",
-        "split": "^1.0.1",
-        "underscore": "^1.8.3"
-    }
+  "name": "fpv-logfile-analyzer",
+  "version": "1.0.0",
+  "description": "Script for automatically analyzing the smart-meter logfiles (Forschungsprojekt Virtualisierung HS-Harz)",
+  "main": "index.js",
+  "scripts": {
+    "test": "npm run lint && npm run mocha",
+    "lint": "eslint lib/. test/. controllers/. --config .eslintrc.json --fix",
+    "mocha": "mocha --require ./test/testHelper.js test/ --recursive",
+    "serve-chart": "python -m SimpleHTTPServer 8001",
+    "start": "node bin/www",
+    "watch": "nodemon --watch ./ --watch views/ --watch controllers/ --watch public/ --ext js,css ./bin/www",
+    "setup": "mongoimport --db fpv --collection calculations setup.json --drop"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pinussilvestrus/fpv-logfile-analyzer.git"
+  },
+  "author": "",
+  "license": "GPL-3.0",
+  "bugs": {
+    "url": "https://github.com/pinussilvestrus/fpv-logfile-analyzer/issues"
+  },
+  "babel": {
+    "presets": [
+      "es2015"
+    ]
+  },
+  "homepage": "https://github.com/pinussilvestrus/fpv-logfile-analyzer#readme",
+  "dependencies": {
+    "babel-core": "^6.26.0",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-stage-2": "^6.24.1",
+    "body-parser": "^1.18.2",
+    "chai": "^4.1.2",
+    "commander": "^2.12.2",
+    "es6-promisify": "^5.0.0",
+    "eslint": "^4.16.0",
+    "express": "^4.16.2",
+    "formidable": "^1.1.1",
+    "handlebars": "^4.0.11",
+    "handlebars-layouts": "^3.1.4",
+    "handlebars-wax": "^6.1.0",
+    "method-override": "^2.3.10",
+    "mocha": "^5.0.0",
+    "moment": "^2.20.1",
+    "mongoose": "^5.0.0",
+    "node-chartist": "^1.0.5",
+    "promisify-fs": "^1.0.39",
+    "serve-favicon": "^2.4.5",
+    "split": "^1.0.1",
+    "underscore": "^1.8.3",
+    "winston": "^2.4.0"
+  }
 }

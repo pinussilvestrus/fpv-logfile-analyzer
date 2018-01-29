@@ -16,7 +16,7 @@ const markSelected = (options, value, key) => {
         option[key] = JSON.stringify(option._id) === JSON.stringify(value);
         return option;
     });
-}
+};
 
 router.get('/', function(req, res, next) {
 
@@ -40,7 +40,7 @@ router.get('/', function(req, res, next) {
                 measurements
             });
         });
-    })
+    });
 });
 
 router.patch('/evorher/:id', function(req, res, next) {
@@ -54,7 +54,7 @@ router.patch('/evorher/:id', function(req, res, next) {
 
         calculation.save().then(_ => {
             res.redirect('/');
-        })
+        });
     });
 });
 
@@ -68,7 +68,7 @@ router.patch('/enachher/:id', function(req, res, next) {
 
         calculation.save().then(_ => {
             res.redirect('/');
-        })
+        });
     });
 });
 

@@ -13,7 +13,7 @@ const measurementsModel = require('../models/measurement.model');
 const timestampOffsetOptions = [
     { label: 'kein Offset', value: 0 },
     { label: 'Rechenzentrum - Messung (Offset von 134,417 Tagen)', value: 11613582000 },
-]
+];
 
 /* https://gist.github.com/paambaati/db2df71d80f20c10857d */
 const handleFileUpload = file => {
@@ -73,7 +73,7 @@ router.get('/:id/', function(req, res, next) {
                 chartDiv: diagram.chartDiv
             });
         });
-    }).catch(err => res.send(err))
+    }).catch(err => res.send(err));
 });
 
 router.post('/', function(req, res, next) {
