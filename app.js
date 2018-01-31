@@ -2,6 +2,7 @@ const express = require('express');
 const path = require('path');
 const favicon = require('serve-favicon');
 const bodyParser = require('body-parser');
+const cookieParser = require("cookie-parser");
 const handlebars = require("handlebars");
 const layouts = require("handlebars-layouts");
 const handlebarsWax = require('handlebars-wax');
@@ -26,6 +27,7 @@ app.set('view cache', true);
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(methodOverride('_method')); // for GET requests
