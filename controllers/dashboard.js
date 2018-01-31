@@ -4,6 +4,7 @@
 
 const express = require('express');
 const _ = require('lodash');
+const passport = require('passport');
 const router = express.Router();
 const analyzer = require('../lib/index');
 const measurementsModel = require('../models/measurement.model');
@@ -18,7 +19,9 @@ const markSelected = (options, value, key) => {
     });
 };
 
-router.get('/', function(req, res, next) {
+router.get('/', passport.authenticate('jwt-cookiecombo', {
+    session: false
+}), function(req, res, next) {
 
     // retrieve calculation data
     calculationsModel.findOne({ _id: "59a3e4a4a2049554a93fec93" }).then(calculation => {
