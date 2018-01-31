@@ -33,7 +33,7 @@ router.post('/register', function(req, res) {
     }
 });
 
-router.get('/', function(req, res) {
+router.get('/users', function(req, res) {
     userModel.find({}).then((err, users) => {
         res.json(users);
     });
@@ -57,11 +57,11 @@ router.post('/auth', (req, res) => {
                     let token = jwt.sign(user.toJSON(), config.auth.secret, {
                         expiresIn: "2 days"
                     });
-                    res.json({
-                        success: true,
-                        message: 'Authentication successfull',
-                        token
-                    });
+
+                    res.cookie('jwt', token);
+
+                    res.redirect('/');
+
                 } else {
                     res.send({
                         success: false,
@@ -73,6 +73,15 @@ router.post('/auth', (req, res) => {
     }).catch(err => {
         throw err;
     });
+});
+
+router.get('/login/', function(req, res, next) {
+    return res.render('lib/login');
+});
+
+router.get('/logout/', function(req, res, next) {
+    res.clearCookie('jwt');
+    return res.redirect('/');
 });
 
 module.exports = router;
