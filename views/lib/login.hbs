@@ -29,39 +29,27 @@
 	</head>
 	<body>
 		<div class="container">
-			<div class="row main">
-				<div class="panel-heading">
-	               <div class="panel-title text-center">
-	               		<h1 class="title">FPV Login</h1>
-	               		<hr />
-	               	</div>
-	            </div> 
-				<div class="main-login main-center">
-					<form class="form-horizontal" method="post" action="/auth">
-						<div class="form-group">
-							<label for="username" class="cols-sm-2 control-label">Benutzername</label>
-							<div class="cols-sm-10">
-								<div class="input-group">
-									<span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
-									<input type="text" class="form-control" name="username" id="username"/>
-								</div>
-							</div>
-						</div>
+			<div class="wrapper fadeInDown">
+				<h2>Forschungsprojekt Virtualisierung</h2>
+				<div id="formContent">
 
-						<div class="form-group">
-							<label for="password" class="cols-sm-2 control-label">Passwort</label>
-							<div class="cols-sm-10">
-								<div class="input-group">
-									<span class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true"></i></span>
-									<input type="password" class="form-control" name="password" id="password"/>
-								</div>
-							</div>
-						</div>
+					<!-- Icon -->
+					<div class="fadeIn first">
+						<img src="/images/login.svg" id="icon" alt="User Icon" />
+					</div>
 
-						<div class="form-group ">
-							<button type="submit" class="btn btn-primary btn-lg btn-block login-button">Anmelden</button>
-						</div>
+					<!-- Login Form -->
+					<form method="POST" action="/auth/">
+						<input type="text" id="username" class="fadeIn second" name="username" placeholder="Benutzername">
+						<input type="password" id="password" class="fadeIn third" name="password" placeholder="Passwort">
+						<input type="submit" class="fadeIn fourth" value="Anmelden">
 					</form>
+
+					<!-- Remind Passowrd -->
+					<div id="formFooter">
+						<a class="underlineHover" href="https://www.hs-harz.de/" target="_blank">Hochschule Harz</a>
+					</div>
+
 				</div>
 			</div>
 
