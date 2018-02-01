@@ -45,9 +45,11 @@ router.post('/auth', (req, res) => {
         email: req.body.email
     }).then(user => {
         if (!user) {
-            res.send({
-                success: false,
-                message: 'Authentication failed. User not found.'
+            res.render('lib/login', {
+                notification: {
+                    message: 'Authentifizierung fehlgeschlagen. Nutzer existiert nicht!',
+                    status: 'danger'
+                }
             });
         } else {
             // Check if password matches
@@ -63,15 +65,22 @@ router.post('/auth', (req, res) => {
                     res.redirect('/');
 
                 } else {
-                    res.send({
-                        success: false,
-                        message: 'Authentication failed. Password did not match'
+                    res.render('lib/login', {
+                        notification: {
+                            message: 'Authentifizierung fehlgeschlagen. Fehlerhaftes Passwort!',
+                            status: 'danger'
+                        }
                     });
                 }
             });
         }
     }).catch(err => {
-        throw err;
+        res.render('lib/login', {
+            notification: {
+                message: 'Authentifizierung fehlgeschlagen. Fehlerhaftes Passwort!',
+                status: 'danger'
+            }
+        });
     });
 });
 

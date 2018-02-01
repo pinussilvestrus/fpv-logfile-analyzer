@@ -1,0 +1,19 @@
+<div class="notification-handler">
+    <input type="hidden" id="notificationMessage" value="{{notification.message}}" name="message" />
+    <input type="hidden" id="notificationStatus" value="{{notification.status}}" name="status" />
+
+    <script type="text/javascript">
+      $('.notification-handler').ready(function(e) { 
+        let notificationMessage = $('#notificationMessage').val();
+        let notificationStatus = $('#notificationStatus').val();
+        
+        if (notificationMessage && notificationStatus) {
+          $.notify({
+            message: notificationMessage 
+          },{
+            type: notificationStatus
+          });
+        }
+      });
+  </script>
+</div>

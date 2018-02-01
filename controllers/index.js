@@ -6,5 +6,4 @@ router.use('/about/', require('./about'));
 router.use('/measurements/', require('./measurements'));
 router.use(require('./auth'));
 
-
 module.exports = router;

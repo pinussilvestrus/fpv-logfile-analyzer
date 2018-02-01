@@ -9,6 +9,7 @@ const router = express.Router();
 const analyzer = require('../lib/index');
 const measurementsModel = require('../models/measurement.model');
 const calculationsModel = require('../models/calculation.model');
+const authHelper = require('../lib/authHelper');
 
 // Dashboard
 
@@ -19,7 +20,7 @@ const markSelected = (options, value, key) => {
     });
 };
 
-router.get('/', passport.authenticate('jwt', {session: false, failureRedirect: '/login/'}), function(req, res, next) {
+router.get('/', authHelper, function(req, res, next) {
 
     // retrieve calculation data
     calculationsModel.findOne({ _id: "59a3e4a4a2049554a93fec93" }).then(calculation => {
@@ -44,7 +45,7 @@ router.get('/', passport.authenticate('jwt', {session: false, failureRedirect: '
     });
 });
 
-router.patch('/evorher/:id', function(req, res, next) {
+router.patch('/evorher/:id', authHelper, function(req, res, next) {
     let calculationId = req.params.id;
     let calculationPatch = req.body;
 
@@ -59,7 +60,7 @@ router.patch('/evorher/:id', function(req, res, next) {
     });
 });
 
-router.patch('/enachher/:id', function(req, res, next) {
+router.patch('/enachher/:id', authHelper, function(req, res, next) {
     let calculationId = req.params.id;
     let calculationPatch = req.body;
     calculationsModel.findOne({ _id: calculationId }).then(calculation => {
