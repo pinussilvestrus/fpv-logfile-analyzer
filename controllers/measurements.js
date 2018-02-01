@@ -9,6 +9,7 @@ const path = require('path');
 const fs = require('promisify-fs');
 const analyzer = require('../lib/index');
 const measurementsModel = require('../models/measurement.model');
+const authHelper = require('../lib/authHelper');
 
 const timestampOffsetOptions = [
     { label: 'kein Offset', value: 0 },
@@ -42,7 +43,7 @@ const calculateUsedEnergyPerMinute = statistics => {
 };
 
 // Measurements
-router.get('/', function(req, res, next) {
+router.get('/', authHelper, function(req, res, next) {
     return measurementsModel.find({}).then(result => {
         return res.render('measurements/measurements-overview', {
             title: 'Messungen',
@@ -51,7 +52,7 @@ router.get('/', function(req, res, next) {
     });
 });
 
-router.get('/add/', function(req, res, next) {
+router.get('/add/', authHelper, function(req, res, next) {
     return res.render('measurements/measurement-add', {
         title: 'Messung hinzufügen',
         dataPointMethodOptions: analyzer.getDataPointFunctionNames,
@@ -59,7 +60,7 @@ router.get('/add/', function(req, res, next) {
     });
 });
 
-router.get('/:id/', function(req, res, next) {
+router.get('/:id/', authHelper, function(req, res, next) {
     return measurementsModel.findOne({ _id: req.params.id }).then(result => {
         return analyzer.writeDiagram(result, true).then(diagram => {
 
@@ -76,7 +77,7 @@ router.get('/:id/', function(req, res, next) {
     }).catch(err => res.send(err));
 });
 
-router.post('/', function(req, res, next) {
+router.post('/', authHelper, function(req, res, next) {
 
     let form = new formidable.IncomingForm();
     form.parse(req, function(err, fields, files) {
@@ -108,7 +109,7 @@ router.post('/', function(req, res, next) {
     });
 });
 
-router.delete('/:id/', function(req, res, next) {
+router.delete('/:id/', authHelper, function(req, res, next) {
     return measurementsModel.find({ _id: req.params.id }).remove().then(result => {
         // delete logfile
         return fs.delFile(req.query.logFile).then(_ => {

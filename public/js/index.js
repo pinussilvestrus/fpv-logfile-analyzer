@@ -1,5 +1,4 @@
 const nextPage = function(href) {
-    console.log(href);
     if (href) {
         window.location.href = href;
     } else {
@@ -36,7 +35,6 @@ $('a[data-method="delete-material"]').on('click', function(e) {
         type: 'DELETE',
         error: showAJAXError,
         success: function(result) {
-            console.log(result);
             nextPage($buttonContext.attr('redirect'));
         },
     });
@@ -109,7 +107,7 @@ const loadPieChart = function() {
     ];
 
     new Chartist.Pie('.pie-chart', data, options);
-}
+};
 
 $('.pie-chart').ready(function(e) {
     if( $('.pie-chart').length )   {

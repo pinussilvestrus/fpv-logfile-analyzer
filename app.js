@@ -2,11 +2,13 @@ const express = require('express');
 const path = require('path');
 const favicon = require('serve-favicon');
 const bodyParser = require('body-parser');
+const cookieParser = require("cookie-parser");
 const handlebars = require("handlebars");
 const layouts = require("handlebars-layouts");
 const handlebarsWax = require('handlebars-wax');
 const methodOverride = require('method-override');
 const mongoose = require('mongoose');
+const passport = require('passport');
 
 const app = express();
 
@@ -25,6 +27,7 @@ app.set('view cache', true);
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(methodOverride('_method')); // for GET requests
@@ -35,6 +38,10 @@ app.use(methodOverride((req, res, next) => { // for POST requests
         return method;
     }
 }));
+
+// Init passport
+app.use(passport.initialize());
+require('./config/passport')(passport);
 
 // Initialize models
 const mongoUrl = process.env.DB_URL || 'mongodb://localhost:27017/fpv';
