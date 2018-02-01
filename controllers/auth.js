@@ -42,7 +42,7 @@ router.get('/users', function(req, res) {
 // Authenticate the user and get a JSON Web Token to include in the header of future requests.
 router.post('/auth', (req, res) => {
     userModel.findOne({
-        email: req.body.email
+        username: req.body.username
     }).then(user => {
         if (!user) {
             res.render('lib/login', {
