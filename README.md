@@ -1,5 +1,5 @@
 # fpv-logfile-analyzer
-Script for automatically analyzing the smart-meter logfiles (Forschungsprojekt Virtualisierung HS-Harz)
+Script for automatically analyzing [fhem](https://wiki.fhem.de/wiki/Hauptseite) log-files (Forschungsprojekt Virtualisierung HS-Harz)
 
 [![Build Status](https://travis-ci.org/pinussilvestrus/fpv-logfile-analyzer.svg?branch=master)](https://travis-ci.org/pinussilvestrus/fpv-logfile-analyzer)
 
