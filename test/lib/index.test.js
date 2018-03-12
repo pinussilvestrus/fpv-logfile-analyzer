@@ -35,7 +35,7 @@ describe('analyzer library', () => {
 
     it('should calculator co2 emission correctly', () => {
       let result = analyzer.calculateCO2Emission(100);
-      expect(result).to.eq(59);
+      expect(result).to.eq(52.7);
     });
 
 });
