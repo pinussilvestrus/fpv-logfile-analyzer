@@ -1,7 +1,7 @@
 # fpv-logfile-analyzer
 Script for automatically analyzing the smart-meter logfiles (Forschungsprojekt Virtualisierung HS-Harz)
 
-[![Build Status](https://travis-ci.com/pinussilvestrus/fpv-logfile-analyzer.svg?token=paXVgNHzzjD7VfjnjH3Q&branch=master)](https://travis-ci.com/pinussilvestrus/fpv-logfile-analyzer)
+[![Build Status](https://travis-ci.org/pinussilvestrus/fpv-logfile-analyzer.svg?branch=master)](https://travis-ci.org/pinussilvestrus/fpv-logfile-analyzer)
 
 ![image](https://user-images.githubusercontent.com/9433996/36330967-370742de-136c-11e8-89ed-b115ed3626b7.png)
 
