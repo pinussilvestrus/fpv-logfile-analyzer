@@ -6,7 +6,7 @@ const Schema = mongoose.Schema;
 // current calculation guideline: https://docs.google.com/document/d/1SF0vrBLKHBzJuAh-gRYZQlBSp0ckI7uhUETIqqISL3M/edit#
 
 const eVorherSchema = new Schema({
-    eComputerAlt: { type: Schema.Types.ObjectId, ref: 'measurement' },
+    eComputerAlt: [{ type: Schema.Types.ObjectId, ref: 'measurement' }],
     tLabore: { type: Number },
     cComputerDurchschnitt: { type: Number }
 });
@@ -19,7 +19,7 @@ const eServerraumSchema = new Schema({
 });
 
 const eNachherSchema = new Schema({
-    eZeroClient: { type: Schema.Types.ObjectId, ref: 'measurement' },
+    eZeroClient: [{ type: Schema.Types.ObjectId, ref: 'measurement' }],
     tLabore: { type: Number },
     cZeroClientsDurchschnitt: { type: Number },
     eServerraum: eServerraumSchema

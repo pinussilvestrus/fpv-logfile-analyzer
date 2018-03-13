@@ -15,8 +15,8 @@
                                 <form action="/dashboard/evorher/{{calculation._id}}" method="post">
                                     <input name="_method" type="hidden" value="PATCH">
                                     <div class="form-group">
-                                        <label>Messung für Energieverbrauch alter Computer <b>E<sub>ComputerAlt</sub></b></label>
-                                        <select class="form-control" id="eComputerAlt" name="eComputerAlt" required>
+                                        <label>Messung(en) für Energieverbrauch alter Computer <b>E<sub>ComputerAlt</sub></b></label>
+                                        <select class="form-control" id="eComputerAlt" name="eComputerAlt" required multiple>
                                             {{#each measurements}}
                                                 <option value="{{_id}}" {{#if selectedComputerAlt}}selected{{/if}}>{{label}}</option>
                                             {{/each}}
@@ -84,8 +84,8 @@
                                 <form action="/dashboard/enachher/{{calculation._id}}" method="post">
                                     <input name="_method" type="hidden" value="PATCH">
                                     <div class="form-group">
-                                        <label>Messung für Energieverbrauch Zero-Client <b>E<sub>ZeroClient</sub></b></label>
-                                        <select class="form-control" id="eZeroClient" name="eZeroClient" required>
+                                        <label>Messung(en) für Energieverbrauch Zero-Client <b>E<sub>ZeroClient</sub></b></label>
+                                        <select class="form-control" id="eZeroClient" name="eZeroClient" required multiple>
                                             {{#each measurements}}
                                                 <option value="{{_id}}" {{#if selectedZeroClient}}selected{{/if}}>{{label}}</option>
                                             {{/each}}

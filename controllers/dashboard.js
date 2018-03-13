@@ -13,9 +13,9 @@ const authHelper = require('../lib/authHelper');
 
 // Dashboard
 
-const markSelected = (options, value, key) => {
+const markSelected = (options, values, key) => {
     return options.map(option => {
-        option[key] = JSON.stringify(option._id) === JSON.stringify(value);
+        option[key] = _.find(values, v => JSON.stringify(option._id) === JSON.stringify(v));
         return option;
     });
 };
@@ -33,8 +33,8 @@ router.get('/', authHelper, function(req, res, next) {
             // selection
             measurements = markSelected(measurements, calculation.eVorher.eComputerAlt, 'selectedComputerAlt');
             measurements = markSelected(measurements, calculation.eNachher.eZeroClient, 'selectedZeroClient');
-            measurements = markSelected(measurements, calculation.eNachher.eServerraum.eSteckdose1, 'selectedSteckdose1');
-            measurements = markSelected(measurements, calculation.eNachher.eServerraum.eSteckdose2, 'selectedSteckdose2');
+            measurements = markSelected(measurements, [calculation.eNachher.eServerraum.eSteckdose1], 'selectedSteckdose1');
+            measurements = markSelected(measurements, [calculation.eNachher.eServerraum.eSteckdose2], 'selectedSteckdose2');
 
             return res.render('dashboard/dashboard', {
                 title: 'Dashboard',
