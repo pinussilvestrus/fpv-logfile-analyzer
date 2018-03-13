@@ -50,3 +50,9 @@ Usage: node cli.js [options]
     -m, --data-points-method <number>  Which method to choose for the data points, see dataPointsHelper.js, default is useBlockAverage
     -t, --timestamp-offset <number>    Offset for converting all timestamps
     -h, --help                         output usage information
+
+## Calculation Schema
+The Guideline for the current calculation schema can be found [here](https://docs.google.com/document/d/1SF0vrBLKHBzJuAh-gRYZQlBSp0ckI7uhUETIqqISL3M) (Permission has to be granted by owner!).
+Following calculation properties are arrays in the schema for selecting multiple measurements on the dashboard (real value will be calculated by the average):
+- eComputerAlt
+- eZeroClient 
