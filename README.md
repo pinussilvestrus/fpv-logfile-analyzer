@@ -30,6 +30,12 @@ Script and Web Application for automatically analyzing [fhem](https://wiki.fhem.
 2. run `npm run setup` for prefill the mongo-db with calculation-data
 3. run `npm start` for serving the app on http://localhost:3100/
 
+## Develop
+
+1. Go into project folder
+2. run `npm run setup` for prefill the mongo-db with calculation-data
+3. run `npm run watch` for serving the app on http://localhost:3100/
+
 ## Cli Usage
 
 Usage: node cli.js [options]

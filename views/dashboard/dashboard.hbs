@@ -227,6 +227,27 @@
                         <div class="ct-chart ct-minor-seventh bar-chart" 
                                 data-vorher="{{calculation.eVorherUsedEnergy}}"
                                 data-nachher="{{calculation.eNachherUsedEnergy}}"></div>
+                        <hr>
+                        <div class="row">
+                            <div class="centered-text evaluation col-md-6">
+                                <p class="text-muted">totale Einsparung Strom</p>
+                                <p class="big-number">{{calculation.eDifference}} kWh</p>
+                            </div>
+                            <div class="centered-text evaluation col-md-6">
+                                <p class="text-muted">prozentuale Einsparung Strom</p>
+                                <p class="big-number">{{calculation.eDifferencePercentage}} %</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="centered-text evaluation col-md-6">
+                                <p class="text-muted">totale Einsparung CO2</p>
+                                <p class="big-number">{{calculation.co2Difference}} kg</p>
+                            </div>
+                            <div class="centered-text evaluation col-md-6">
+                                <p class="text-muted">prozentuale Einsparung CO2</p>
+                                <p class="big-number">{{calculation.co2DifferencePercentage}} %</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
