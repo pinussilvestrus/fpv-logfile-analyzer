@@ -4,6 +4,7 @@ Script and Web Application for automatically analyzing [fhem](https://wiki.fhem.
 
 
 [![Build Status](https://travis-ci.org/pinussilvestrus/fpv-logfile-analyzer.svg?branch=master)](https://travis-ci.org/pinussilvestrus/fpv-logfile-analyzer) [![Greenkeeper badge](https://badges.greenkeeper.io/pinussilvestrus/fpv-logfile-analyzer.svg?token=980d1d0322802cec36a63bd342c497f36c155a8629fde870949fb02c5f03f41a&ts=1519317159352)](https://greenkeeper.io/)
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fpinussilvestrus%2Ffpv-logfile-analyzer.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2Fpinussilvestrus%2Ffpv-logfile-analyzer?ref=badge_shield)
 
 ![image](https://user-images.githubusercontent.com/9433996/36330967-370742de-136c-11e8-89ed-b115ed3626b7.png)
 
@@ -56,3 +57,6 @@ The Guideline for the current calculation schema can be found [here](https://doc
 Following calculation properties are arrays in the schema for selecting multiple measurements on the dashboard (real value will be calculated by the average):
 - eComputerAlt
 - eZeroClient 
+
+## License
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fpinussilvestrus%2Ffpv-logfile-analyzer.svg?type=large)](https://app.fossa.io/projects/git%2Bgithub.com%2Fpinussilvestrus%2Ffpv-logfile-analyzer?ref=badge_large)
