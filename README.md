@@ -39,7 +39,7 @@ Script and Web Application for automatically analyzing [fhem](https://wiki.fhem.
 
 ## Cli Usage
 
-Usage: node cli.js [options]
+Usage: node lib/cli.js [options]
 
     Options:
 
