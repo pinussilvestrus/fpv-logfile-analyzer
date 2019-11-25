@@ -38,7 +38,7 @@
     "commander": "^3.0.2",
     "cookie-parser": "^1.4.4",
     "es6-promisify": "^6.0.2",
-    "eslint": "^6.5.1",
+    "eslint": "^6.7.1",
     "express": "^4.17.1",
     "formidable": "^1.2.1",
     "handlebars": "^4.4.2",
