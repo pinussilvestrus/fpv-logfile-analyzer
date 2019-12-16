@@ -50,7 +50,7 @@
     "moment": "^2.24.0",
     "mongoose": "^5.7.12",
     "node-chartist": "^1.0.5",
-    "passport": "^0.4.0",
+    "passport": "^0.4.1",
     "passport-jwt": "^4.0.0",
     "promisify-fs": "^1.0.39",
     "serve-favicon": "^2.5.0",
