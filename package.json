@@ -46,7 +46,7 @@
     "handlebars-wax": "^6.1.0",
     "jsonwebtoken": "^8.5.1",
     "method-override": "^3.0.0",
-    "mocha": "^6.2.2",
+    "mocha": "^7.1.1",
     "moment": "^2.24.0",
     "mongoose": "^5.7.12",
     "node-chartist": "^1.0.5",
