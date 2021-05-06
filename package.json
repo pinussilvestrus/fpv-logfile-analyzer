@@ -55,7 +55,7 @@
     "promisify-fs": "^1.0.39",
     "serve-favicon": "^2.5.0",
     "split": "^1.0.1",
-    "underscore": "^1.9.1",
+    "underscore": "^1.12.1",
     "winston": "^3.2.1"
   }
 }
